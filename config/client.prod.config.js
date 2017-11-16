@@ -9,7 +9,7 @@ module.exports = {
   devtool: 'source-map',
   entry: [
     './index.js',
-    './assets/scss/main.scss',
+    './assets/scss/default.scss',
   ],
   output: {
     path: path.join(__dirname, '../server/public'),
@@ -31,7 +31,19 @@ module.exports = {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader'],
+          use: [
+            {
+              loader: 'css-loader',
+              // options: {
+              //   modules: true,
+              //   importLoaders: 1,
+              //   localIdentName: '[name]__[local]___[hash:base64:5]',
+              // },
+            },
+            {
+              loader: 'sass-loader',
+            },
+          ],
         }),
       },
       {

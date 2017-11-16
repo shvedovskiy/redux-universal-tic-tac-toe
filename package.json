@@ -39,6 +39,7 @@
   },
   "homepage": "https://github.com/shvedovskiy/redux-universal-tic-tac-toe#readme",
   "dependencies": {
+    "classnames": "^2.2.5",
     "cross-env": "^5.0.5",
     "ejs": "^2.5.7",
     "express": "^4.14.0",
