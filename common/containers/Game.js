@@ -32,50 +32,48 @@ class Game extends React.Component {
   };
 
   state = {
-    messages: ['Game started'],
+    messages: [],
     disabled: null,
   };
 
   componentWillReceiveProps(nextProps) {
     this.setState((prevState) => {
-      let disabled;
-
-      if (prevState.disabled === null) {
-        disabled = nextProps.players.X === this.props.opponent;
-      } else {
-        disabled = !prevState.disabled;
-      }
-
-      if (prevState.messages.length > 1) {
-        if (this.props.winner) {
-          return {
-            messages: [
-              (
-                <div className="end-of-game">
-                  <div className="end-of-game-message">{this.props.winner} win!</div>
-                  <div className="end-of-game-buttons">
-                    <button className="game-button" onClick={this.props.replay}>Replay</button>
-                    <button className="game-button" onClick={this.props.logout}>Logout</button>
-                  </div>
-                </div>
-              ),
-            ],
-          };
-        } else if (!this.props.isReady) {
-          return {
-            messages: [
-              'Wait for replay...',
-            ],
-          };
-        }
+      if (!prevState.messages.length && !prevState.disabled) { // start of game
         return {
           messages: [
-            nextProps.xIsNext ? 'X moved' : 'O moved',
+            'Game started',
           ],
-          disabled,
+          disabled: nextProps.players.X === this.props.opponent,
         };
       }
-      return { disabled };
+
+      let messages;
+      if (this.props.winner) {
+        messages = [
+          (
+            <div className="end-of-game">
+              <div className="end-of-game-message">{this.props.winner} win!</div>
+              <div className="end-of-game-buttons">
+                <button className="game-button" onClick={this.props.replay}>Replay</button>
+                <button className="game-button" onClick={this.props.logout}>Logout</button>
+              </div>
+            </div>
+          ),
+        ];
+      } else if (!this.props.isReady) {
+        messages = [
+          'Wait for replay...',
+        ];
+      } else {
+        messages = [
+          nextProps.xIsNext ? `${this.props.players.X} moved` : `${this.props.players.O} moved`,
+        ];
+      }
+
+      return {
+        messages,
+        disabled: !prevState.disabled,
+      };
     });
   }
 
