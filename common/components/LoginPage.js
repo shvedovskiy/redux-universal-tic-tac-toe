@@ -5,9 +5,14 @@ import classNames from 'classnames';
 
 export default class LoginPage extends React.Component {
   static propTypes = {
-    username: PropTypes.string.isRequired,
-    error: PropTypes.string.isRequired,
+    username: PropTypes.string,
+    error: PropTypes.string,
     handleSetUsername: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    username: null,
+    error: null,
   };
 
   componentDidMount() {
