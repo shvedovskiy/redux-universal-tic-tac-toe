@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 module.exports = {
@@ -49,6 +50,10 @@ module.exports = {
     }),
     new UglifyJSPlugin({
       sourceMap: true
+    }),
+    new ExtractTextPlugin({
+      filename: 'css/main.css',
+      allChunks: true,
     }),
   ]
 };

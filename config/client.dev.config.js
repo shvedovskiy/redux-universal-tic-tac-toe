@@ -11,7 +11,7 @@ module.exports = {
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
     './index.js',
-    './assets/scss/main.scss',
+    './assets/scss/layout.scss',
   ],
   output: {
     path: path.join(__dirname, '../server/public'),
@@ -37,16 +37,19 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          'style-loader',
+          'style-loader?sourceMap',
+          'css-loader?sourceMap&importLoaders=3',
           {
-            loader: 'css-loader',
+            loader: 'postcss-loader',
             options: {
-              modules: true,
-              importLoaders: 1,
-              localIdentName: '[name]__[local]___[hash:base64:5]',
+              config: {
+                path: 'config/postcss.config.js',
+              },
+              sourceMap: true,
             },
           },
-          'sass-loader',
+          'resolve-url-loader',
+          'sass-loader?sourceMap',
         ]
       },
       {

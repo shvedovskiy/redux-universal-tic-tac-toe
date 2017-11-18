@@ -9,7 +9,7 @@ module.exports = {
   devtool: 'source-map',
   entry: [
     './index.js',
-    './assets/scss/default.scss',
+    './assets/scss/layout.scss',
   ],
   output: {
     path: path.join(__dirname, '../server/public'),
@@ -32,17 +32,18 @@ module.exports = {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
+            'css-loader?sourceMap&importLoaders=3',
             {
-              loader: 'css-loader',
-              // options: {
-              //   modules: true,
-              //   importLoaders: 1,
-              //   localIdentName: '[name]__[local]___[hash:base64:5]',
-              // },
+              loader: 'postcss-loader',
+              options: {
+                config: {
+                  path: 'config/postcss.config.js',
+                },
+                sourceMap: true,
+              },
             },
-            {
-              loader: 'sass-loader',
-            },
+            'resolve-url-loader',
+            'sass-loader?sourceMap',
           ],
         }),
       },
@@ -60,12 +61,15 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
+        'NODE_ENV': JSON.stringify('production'),
+      },
     }),
     new UglifyJSPlugin({
-      sourceMap: true
+      sourceMap: true,
     }),
-    new ExtractTextPlugin('css/main.css'),
+    new ExtractTextPlugin({
+      filename: 'css/main.css',
+      allChunks: true,
+    }),
   ],
 };
