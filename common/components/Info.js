@@ -23,8 +23,10 @@ export default class GamePage extends React.Component {
   };
 
   render() {
-    const { players, opponent, xIsNext, winner, children, messages } = this.props;
-    const { X, O } = players;
+    const {
+      players: { X, O }, opponent, xIsNext,
+      winner, children, messages,
+    } = this.props;
 
     return (
       <div className="game">

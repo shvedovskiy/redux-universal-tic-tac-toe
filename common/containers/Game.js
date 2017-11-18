@@ -9,6 +9,7 @@ import * as actions from '../actions/index';
 
 class Game extends React.Component {
   static propTypes = {
+    lastMoveNumber: PropTypes.number,
     opponent: PropTypes.string,
     message: PropTypes.string,
     xIsNext: PropTypes.bool,
@@ -25,6 +26,7 @@ class Game extends React.Component {
   };
 
   static defaultProps = {
+    lastMoveNumber: null,
     message: null,
     opponent: null,
     xIsNext: false,
@@ -37,36 +39,43 @@ class Game extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
+    const {
+      players: { X, O }, winner, opponent, replay,
+      logout, isReady,
+    } = this.props;
+
     this.setState((prevState) => {
       if (!prevState.messages.length && !prevState.disabled) { // start of game
         return {
           messages: [
             'Game started',
           ],
-          disabled: nextProps.players.X === this.props.opponent,
+          disabled: nextProps.players.X === opponent,
         };
       }
 
       let messages;
-      if (this.props.winner) {
+      if (winner) {
         messages = [
           (
             <div className="end-of-game">
-              <div className="end-of-game-message">{this.props.winner} win!</div>
+              <div className="end-of-game-message">{winner !== opponent ? 'You' : winner} win!</div>
               <div className="end-of-game-buttons">
-                <button className="game-button" onClick={this.props.replay}>Replay</button>
-                <button className="game-button" onClick={this.props.logout}>Logout</button>
+                <button className="game-button" onClick={replay}>Replay</button>
+                <button className="game-button" onClick={logout}>Logout</button>
               </div>
             </div>
           ),
         ];
-      } else if (!this.props.isReady) {
+      } else if (!isReady) {
         messages = [
           'Wait for replay...',
         ];
       } else {
         messages = [
-          nextProps.xIsNext ? `${this.props.players.X} moved` : `${this.props.players.O} moved`,
+          nextProps.xIsNext
+            ? `${X} moved ${this.coordinates[nextProps.lastMoveNumber]}`
+            : `${O} moved ${this.coordinates[nextProps.lastMoveNumber]}`,
         ];
       }
 
@@ -76,6 +85,12 @@ class Game extends React.Component {
       };
     });
   }
+
+  coordinates = [
+    '(1, 1)', '(1, 2)', '(1, 3)',
+    '(2, 1)', '(2, 2)', '(2, 3)',
+    '(3, 1)', '(3, 2)', '(3, 3)',
+  ];
 
   render() {
     return (
@@ -109,6 +124,7 @@ const mapStateToProps = state => ({
   message: state.user.message,
   opponent: state.user.opponent,
   squares: state.game.squares,
+  lastMoveNumber: state.game.lastMoveNumber,
   players: {
     X: state.game.X,
     O: state.game.O,

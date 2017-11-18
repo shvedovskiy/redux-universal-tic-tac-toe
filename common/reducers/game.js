@@ -13,6 +13,7 @@ const initialState = {
   winner: null,
   xIsNext: false,
   squares: Array(9).fill(null),
+  lastMoveNumber: null,
   isReady: false,
 };
 
@@ -30,6 +31,7 @@ const game = (state = initialState, action) => {
       return {
         ...state,
         squares: action.squares,
+        lastMoveNumber: action.lastMoveNumber,
         winner: action.winner,
         xIsNext: !state.xIsNext,
       };

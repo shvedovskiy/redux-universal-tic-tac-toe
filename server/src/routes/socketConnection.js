@@ -175,6 +175,7 @@ export default function (io) {
           }
           io.in(socket.room).emit('action', {
             type: MOVED,
+            lastMoveNumber: action.number,
             squares: lastMove,
             winner,
           });
