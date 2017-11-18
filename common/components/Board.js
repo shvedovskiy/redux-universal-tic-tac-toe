@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Square from './Square';
 
 
@@ -22,20 +23,32 @@ export default class Board extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="board-row">
+      <div className="game-board">
+        <div className={classNames('square', 'top', 'left')}>
           {this.renderSquare(0)}
+        </div>
+        <div className={classNames('square', 'top')}>
           {this.renderSquare(1)}
+        </div>
+        <div className={classNames('square', 'top', 'right')}>
           {this.renderSquare(2)}
         </div>
-        <div className="board-row">
+        <div className={classNames('square', 'left')}>
           {this.renderSquare(3)}
+        </div>
+        <div className="square">
           {this.renderSquare(4)}
+        </div>
+        <div className={classNames('square', 'right')}>
           {this.renderSquare(5)}
         </div>
-        <div className="board-row">
+        <div className={classNames('square', 'bottom', 'left')}>
           {this.renderSquare(6)}
+        </div>
+        <div className={classNames('square', 'bottom')}>
           {this.renderSquare(7)}
+        </div>
+        <div className={classNames('square', 'bottom', 'right')}>
           {this.renderSquare(8)}
         </div>
       </div>

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Board from '../components/Board';
 import Info from '../components/Info';
+import Board from '../components/Board';
 import Modal from '../components/Modal';
 import * as actions from '../actions/index';
 
@@ -15,8 +15,10 @@ class Game extends React.Component {
     squares: PropTypes.array.isRequired,
     winner: PropTypes.string,
     move: PropTypes.func.isRequired,
-    X: PropTypes.string,
-    O: PropTypes.string,
+    players: PropTypes.shape({
+      X: PropTypes.string.isRequired,
+      O: PropTypes.string.isRequired,
+    }).isRequired,
     isReady: PropTypes.bool.isRequired,
     replay: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
@@ -27,29 +29,48 @@ class Game extends React.Component {
     opponent: null,
     xIsNext: false,
     winner: null,
-    X: null,
-    O: null,
   };
 
   state = {
-    history: ['Game started'],
+    messages: ['Game started'],
     disabled: null,
   };
 
   componentWillReceiveProps(nextProps) {
     this.setState((prevState) => {
       let disabled;
+
       if (prevState.disabled === null) {
-        disabled = nextProps.X === this.props.opponent;
+        disabled = nextProps.players.X === this.props.opponent;
       } else {
         disabled = !prevState.disabled;
       }
 
-      if (prevState.history.length > 1) {
+      if (prevState.messages.length > 1) {
+        if (this.props.winner) {
+          return {
+            messages: [
+              (
+                <div className="end-of-game">
+                  <div className="end-of-game-message">{this.props.winner} win!</div>
+                  <div className="end-of-game-buttons">
+                    <button className="game-button" onClick={this.props.replay}>Replay</button>
+                    <button className="game-button" onClick={this.props.logout}>Logout</button>
+                  </div>
+                </div>
+              ),
+            ],
+          };
+        } else if (!this.props.isReady) {
+          return {
+            messages: [
+              'Wait for replay...',
+            ],
+          };
+        }
         return {
-          history: [
-            ...prevState.history,
-            nextProps.xIsNext ? 'X moves' : 'O moves',
+          messages: [
+            nextProps.xIsNext ? 'X moved' : 'O moved',
           ],
           disabled,
         };
@@ -59,55 +80,29 @@ class Game extends React.Component {
   }
 
   render() {
-    const messages = [];
-    if (this.props.winner) {
-      messages.push(`Winner: ${this.props.winner}`);
-      messages.push(
-        <div>
-          <button onClick={this.props.replay}>Replay</button>
-          <button onClick={this.props.logout}>Logout</button>
-        </div>,
-      );
-    } else {
-      messages.push(`Now: ${this.props.xIsNext ? 'O' : 'X'}`); // -- игрок такой-то ходил так-то
-    }
-
     return (
-      <div>
-        {
-          !this.props.opponent && (
-            <div className="modal">
-              {this.props.message}
-              <button onClick={this.props.logout}>Logout</button>
-            </div>
-          )
-        }
-        {
-          !this.props.isReady && (
-            messages.push('Wait for replay...')
-          )
-        }
-        <div className="game">
-          <div className="game-board">
+      !this.props.opponent
+        ? (
+          <Modal>
+            {this.props.message}
+            <button onClick={this.props.logout}>Logout</button>
+          </Modal>
+        )
+        : (
+          <Info
+            opponent={this.props.opponent}
+            players={this.props.players}
+            xIsNext={this.props.xIsNext}
+            messages={this.state.messages}
+            winner={this.props.winner}
+          >
             <Board
               disabled={this.state.disabled}
-              squares={this.props.squares}
               move={this.props.move}
+              squares={this.props.squares}
             />
-          </div>
-
-          <div className="game-info">
-            <Info
-              messages={messages}
-              history={this.state.history}
-              players={{
-                X: this.props.X,
-                O: this.props.O,
-              }}
-            />
-          </div>
-        </div>
-      </div>
+          </Info>
+        )
     );
   }
 }
@@ -116,8 +111,10 @@ const mapStateToProps = state => ({
   message: state.user.message,
   opponent: state.user.opponent,
   squares: state.game.squares,
-  X: state.game.X,
-  O: state.game.O,
+  players: {
+    X: state.game.X,
+    O: state.game.O,
+  },
   winner: state.game.winner,
   xIsNext: state.game.xIsNext,
   isReady: state.game.isReady,

@@ -5,14 +5,9 @@ import classNames from 'classnames';
 
 export default class LoginPage extends React.Component {
   static propTypes = {
-    username: PropTypes.string,
-    error: PropTypes.string,
+    username: PropTypes.string.isRequired,
+    error: PropTypes.string.isRequired,
     handleSetUsername: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    username: '',
-    error: null,
   };
 
   componentDidMount() {
@@ -20,7 +15,9 @@ export default class LoginPage extends React.Component {
   }
 
   focusNameInput = () => {
-    this.nameInput && this.nameInput.focus();
+    if (this.nameInput) {
+      this.nameInput.focus();
+    }
   };
 
   handleKeyDown = (e) => {

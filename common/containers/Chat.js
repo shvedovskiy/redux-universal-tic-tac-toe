@@ -7,7 +7,7 @@ import * as actions from '../actions/index';
 
 
 const Chat = props => (
-  <div>
+  <div className="chat">
     <MessageList messages={props.messages} />
     <MessageForm
       onSendMessage={props.onSendMessage}

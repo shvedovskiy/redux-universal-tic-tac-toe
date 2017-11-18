@@ -49,14 +49,16 @@ export default class MessageForm extends React.Component {
 
   render() {
     return (
-      <input
-        className="input-message"
-        placeholder="Type here..."
-        defaultValue=""
-        ref={(node) => { this.messageInput = node; }}
-        onKeyDown={this.handleKeyDown}
-        onInput={this.handleInput}
-      />
+      <div className="message-field-container">
+        <input
+          className="message-field"
+          placeholder="Type here..."
+          defaultValue=""
+          ref={(node) => { this.messageInput = node; }}
+          onKeyDown={this.handleKeyDown}
+          onInput={this.handleInput}
+        />
+      </div>
     );
   }
 }

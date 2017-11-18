@@ -8,15 +8,15 @@ import * as actions from '../actions/index';
 
 class Login extends React.Component {
   static propTypes = {
+    isLogged: PropTypes.bool,
     username: PropTypes.string,
     error: PropTypes.string,
     handleSetUsername: PropTypes.func.isRequired,
-    isLogged: PropTypes.bool,
   };
 
   static defaultProps = {
-    username: '',
     isLogged: false,
+    username: '',
     error: null,
   };
 
@@ -34,8 +34,8 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  username: state.user.username,
   isLogged: state.user.isLogged,
+  username: state.user.username,
   error: state.user.error,
 });
 

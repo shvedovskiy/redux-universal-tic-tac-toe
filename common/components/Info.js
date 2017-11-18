@@ -1,46 +1,55 @@
-/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import Board from './Board';
 
 
-const Control = ({ messages, players, history }) => (
-  <div>
-    X: {players.X} - O: {players.O}
-    <div>
-      Messages:
-      <ul>
-        {
-          messages.map((message, i) => <li key={i}>{message}</li>)
-        }
-      </ul>
-    </div>
-    <div>
-      History:
-      <ul>
-        {
-          history.map((message, i) => <li key={i}>{message}</li>)
-        }
-      </ul>
-    </div>
-  </div>
-);
+export default class GamePage extends React.Component {
+  static propTypes = {
+    opponent: PropTypes.string.isRequired,
+    xIsNext: PropTypes.bool,
+    players: PropTypes.shape({
+      X: PropTypes.string.isRequired,
+      O: PropTypes.string.isRequired,
+    }).isRequired,
+    messages: PropTypes.array.isRequired,
+    winner: PropTypes.bool,
+    children: PropTypes.element.isRequired,
+  };
 
-Control.propTypes = {
-  messages: PropTypes.array,
-  players: PropTypes.shape({
-    X: PropTypes.string.isRequired,
-    Y: PropTypes.string.isRequired,
-  }),
-  history: PropTypes.array,
-};
+  static defaultProps = {
+    xIsNext: false,
+    winner: null,
+  };
 
-Control.defaultProps = {
-  messages: [],
-  players: {
-    X: null,
-    Y: null,
-  },
-  history: [],
-};
+  render() {
+    const { players, opponent, xIsNext, winner, children, messages } = this.props;
+    const { X, O } = players;
 
-export default Control;
+    return (
+      <div className="game">
+        <div className="players">
+          Move:&nbsp;
+          <span className={classNames('player', { next: !winner && xIsNext })}>
+            {opponent === X ? X : 'You'} (<span className={classNames('small', 'x')} />)
+          </span>
+          &nbsp;&mdash;&nbsp;
+          <span className={classNames('player', { next: !winner && !xIsNext })}>
+            {opponent === O ? O : 'You'} (<span className={classNames('small', 'o')} />)
+          </span>
+        </div>
+
+        {children}
+
+        <div className="info">
+          X: {X} - O: {O}
+          <ul className="info messages">
+            {
+              messages.map((message, i) => <li className="info-message" key={i}>{message}</li>)
+            }
+          </ul>
+        </div>
+      </div>
+    );
+  }
+}

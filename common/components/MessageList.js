@@ -7,8 +7,8 @@ const MessageList = ({ messages }) => {
   const list = messages.map((message, i) => {
     if (!message.username && message.service) {
       return (
-        <li className="log" key={i}>
-          {message.text}
+        <li className="log message" key={i}>
+          <span className="log message-body">{message.text}</span>
         </li>
       );
     }
@@ -21,11 +21,9 @@ const MessageList = ({ messages }) => {
   });
 
   return (
-    <div className="chat-area">
-      <ul className="messages">
-        {list}
-      </ul>
-    </div>
+    <ul className="messages">
+      {list}
+    </ul>
   );
 };
 
