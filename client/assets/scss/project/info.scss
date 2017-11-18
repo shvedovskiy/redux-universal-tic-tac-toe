@@ -1,0 +1,32 @@
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .messages {
+    color: #fff;
+    font-size: 150%;
+  }
+
+  .end-of-game {
+    padding: 10px;
+    text-align: center;
+
+    .end-of-game-buttons {
+      margin-top: 30px;
+    }
+
+    .game-button {
+      padding: 15px 25px;
+      background-color: #fff;
+      border: 3px solid #808080;
+      border-radius: 5px;
+      font-size: 70%;
+
+      :first-child {
+        margin-right: 10px;
+      }
+    }
+  }
+}

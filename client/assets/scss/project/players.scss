@@ -1,0 +1,20 @@
+.players {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 250%;
+  font-weight: 100;
+
+  .player.next {
+    color: rgba(255, 255, 255, 0.5);
+
+    .o.small {
+      border-color: #808080;
+    }
+
+    .x.small:before, .x.small:after {
+      background-color: #808080;
+    }
+  }
+}

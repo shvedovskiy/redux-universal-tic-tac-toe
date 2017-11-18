@@ -1,0 +1,47 @@
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .form {
+    display: inline-flex;
+    flex-direction: column;
+    width: 50%;
+    text-align: center;
+  }
+
+  .form-title {
+    font-size: 200%;
+  }
+
+  .username-field {
+    @extend .input;
+    margin-top: 30px;
+    padding-bottom: 15px;
+    font-size: 300%;
+    font-style: italic;
+    font-weight: 100;
+    text-align: center;
+    background-color: transparent;
+    border-bottom: 2px solid #fff;
+  }
+
+  .form-title, .username-field {
+    color: #fff;
+  }
+
+  .login-errors {
+    display: inline-block;
+    margin-top: 80px;
+    padding: 20px;
+    width: auto;
+    background-color: #adaaa7;
+  }
+
+  .login-error {
+    color: #ff291f;
+    font-weight: 300;
+  }
+}

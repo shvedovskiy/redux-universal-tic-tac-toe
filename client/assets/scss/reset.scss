@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body, div, span, h1, h2, h3, h4, h5, h6,
+p, a, big, img, small, strong, b, u, i, ol, ul,
+li, form, label, footer, header, menu, nav, section,
+button, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+html,
+body {
+  font-smoothing: antialiased;
+}
