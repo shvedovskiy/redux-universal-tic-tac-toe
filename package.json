@@ -37,6 +37,10 @@
     "url": "https://github.com/shvedovskiy/redux-universal-tic-tac-toe/issues",
     "email": "ol.shvedov@gmail.com"
   },
+  "browserslist": [
+    "defaults",
+    "not ie < 11"
+  ],
   "homepage": "https://github.com/shvedovskiy/redux-universal-tic-tac-toe#readme",
   "dependencies": {
     "classnames": "^2.2.5",
@@ -54,10 +58,12 @@
     "redux": "^3.7.2",
     "redux-socket.io": "^1.4.0",
     "redux-thunk": "^2.2.0",
+    "resolve-url-loader": "^2.2.0",
     "serve-favicon": "^2.4.5",
     "socket.io": "^2.0.4"
   },
   "devDependencies": {
+    "autoprefixer": "^7.1.6",
     "babel-core": "^6.10.4",
     "babel-eslint": "^8.0.2",
     "babel-loader": "^7.1.1",
@@ -66,6 +72,8 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.7",
+    "cssnano": "^3.10.0",
+    "cssnano-preset-advanced": "^4.0.0-rc.2",
     "eslint": "^4.4.1",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",
@@ -75,6 +83,7 @@
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.30.1",
     "node-sass": "^4.5.3",
+    "postcss-loader": "^2.0.8",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "uglifyjs-webpack-plugin": "^0.4.6",
