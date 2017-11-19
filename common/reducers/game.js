@@ -1,9 +1,7 @@
 import {
-  LOOSE,
   MOVED,
   SET_X_O,
   SUCCESSFULLY_REPLAY,
-  WIN,
 } from '../constants/gameActionTypes';
 
 
@@ -28,24 +26,18 @@ const game = (state = initialState, action) => {
       };
     }
     case MOVED: {
+      let disabled = false;
+      if (action.winner === undefined || action.winner) {
+        disabled = true;
+      }
+
       return {
         ...state,
         squares: action.squares,
         lastMoveNumber: action.lastMoveNumber,
         winner: action.winner,
         xIsNext: !state.xIsNext,
-      };
-    }
-    case WIN: {
-      return {
-        ...state,
-        disabled: true,
-      };
-    }
-    case LOOSE: {
-      return {
-        ...state,
-        disabled: true,
+        disabled,
       };
     }
     case SUCCESSFULLY_REPLAY: {

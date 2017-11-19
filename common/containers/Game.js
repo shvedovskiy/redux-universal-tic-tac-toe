@@ -15,7 +15,7 @@ class Game extends React.Component {
     message: PropTypes.string,
     xIsNext: PropTypes.bool,
     squares: PropTypes.array.isRequired,
-    winner: PropTypes.string,
+    winner: PropTypes.string.isRequired,
     move: PropTypes.func.isRequired,
     players: PropTypes.shape({
       X: PropTypes.string.isRequired,
@@ -31,7 +31,6 @@ class Game extends React.Component {
     message: null,
     opponent: null,
     xIsNext: false,
-    winner: null,
   };
 
   state = {
@@ -41,7 +40,7 @@ class Game extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      players: { X, O }, winner, opponent, replay,
+      players: { X, O }, opponent, replay,
       logout, isReady,
     } = this.props;
 
@@ -56,11 +55,17 @@ class Game extends React.Component {
       }
 
       let messages;
-      if (winner) {
+      if (nextProps.winner === undefined || nextProps.winner) {
         messages = [
           (
             <div className="end-of-game">
-              <div className="end-of-game-message">{winner !== opponent ? 'You' : winner} win!</div>
+              <div className="end-of-game-message">
+                {
+                  nextProps.winner === undefined
+                    ? 'Tie!'
+                    : nextProps.winner !== opponent ? 'You win!' : `${nextProps.winner} win!`
+                }
+              </div>
               <div className="end-of-game-buttons">
                 <button className={classNames('btn', 'game-button')} onClick={replay}>Replay</button>
                 <button className={classNames('btn', 'game-button')} onClick={logout}>Logout</button>

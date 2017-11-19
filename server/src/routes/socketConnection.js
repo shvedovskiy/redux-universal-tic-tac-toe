@@ -11,13 +11,11 @@ import {
   USER_LEFT,
 } from '../../../common/constants/userActionTypes';
 import {
-  LOOSE,
   MOVE,
   MOVED,
   REPLAY,
   SET_X_O,
   SUCCESSFULLY_REPLAY,
-  WIN,
 } from '../../../common/constants/gameActionTypes';
 import {
   NEW_MESSAGE,
@@ -52,10 +50,13 @@ function calculateWinner(squares) {
     if (squares[a] &&
       squares[a] === squares[b] &&
       squares[a] === squares[c]) {
-      return squares[a];
+      return true;
     }
   }
 
+  if (squares.filter(i => i).length >= 9) {
+    return false;
+  }
   return null;
 }
 
@@ -167,27 +168,23 @@ export default function (io) {
           }
 
           data.move(action.number);
+
           const lastMove = data.getLastMove();
           let winner = null;
+          const haveWinner = calculateWinner(lastMove);
 
-          if (calculateWinner(lastMove)) {
+          if (haveWinner) {
             winner = socket.username;
+          } else if (haveWinner === false) {
+            winner = undefined;
           }
+
           io.in(socket.room).emit('action', {
             type: MOVED,
             lastMoveNumber: action.number,
             squares: lastMove,
             winner,
           });
-
-          if (winner) {
-            socket.to(socket.room).emit('action', {
-              type: LOOSE,
-            });
-            socket.emit('action', {
-              type: WIN,
-            });
-          }
           break;
         }
         case SEND_MESSAGE: {
