@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import Info from '../components/Info';
 import Board from '../components/Board';
@@ -61,8 +62,8 @@ class Game extends React.Component {
             <div className="end-of-game">
               <div className="end-of-game-message">{winner !== opponent ? 'You' : winner} win!</div>
               <div className="end-of-game-buttons">
-                <button className="game-button" onClick={replay}>Replay</button>
-                <button className="game-button" onClick={logout}>Logout</button>
+                <button className={classNames('btn', 'game-button')} onClick={replay}>Replay</button>
+                <button className={classNames('btn', 'game-button')} onClick={logout}>Logout</button>
               </div>
             </div>
           ),
@@ -97,8 +98,12 @@ class Game extends React.Component {
       !this.props.opponent
         ? (
           <Modal>
-            {this.props.message}
-            <button onClick={this.props.logout}>Logout</button>
+            <div className="message-content">
+              {this.props.message}
+            </div>
+            <div className="message-buttons">
+              <button className={classNames('btn', 'inverted-btn')} onClick={this.props.logout}>Logout</button>
+            </div>
           </Modal>
         )
         : (

@@ -20,16 +20,17 @@ ul {
 }
 
 @import './base/modal';
+@import './base/button';
+@import './base/page';
+@import './base/symbols';
+@import './base/loader';
+@import './base/input-field';
 
 .mainWrapper {
   min-width: 200px;
   height: 100%;
   margin: 0 auto;
 
-  @import './base/page';
-  @import './base/symbols';
-  @import './base/loader';
-  @import './base/input-field';
   @import './project/login';
   @import './project/waiting';
   @import './project/main';

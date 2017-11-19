@@ -37,11 +37,11 @@ export default class LoginPage extends React.Component {
     if (!this.props.username && this.props.error) {
       return (
         <div className={classNames('page', 'login')}>
-          <div className="login-errors">
+          <ul className="login-errors">
             <li><span className="login-error">
               {this.props.error}
             </span></li>
-          </div>
+          </ul>
         </div>
       ); // unknown invite token error
     }
