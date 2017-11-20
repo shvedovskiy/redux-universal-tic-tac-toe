@@ -6,6 +6,14 @@
     font-size: 300%;
     color: #fff;
     text-align: center;
+
+    @media screen and (max-width: 700px) {
+      font-size: 200%;
+    }
+
+    @media screen and (max-width: 450px) {
+      font-size: 150%;
+    }
   }
 
   .invite-link-container {
@@ -13,6 +21,10 @@
     color: #fff;
     font-size: 150%;
     text-align: center;
+
+    @media screen and (max-width: 700px) {
+      font-size: 100%;
+    }
 
     :first-child {
       font-style: italic;

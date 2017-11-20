@@ -65,11 +65,11 @@ export default class LoginPage extends React.Component {
         </div>
         {
           this.props.error &&
-          <div className="login-errors">
+          <ul className="login-errors">
             <li><span className="login-error">
               {this.props.error}
             </span></li>
-          </div>
+          </ul>
         }
       </div>
     );
