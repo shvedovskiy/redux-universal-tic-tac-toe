@@ -5,6 +5,7 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import Login from './Login';
 import Main from '../components/Main';
 import PrivateRoute from '../util/PrivateRoute';
+import ThemeSwitcher from '../components/ThemeSwitcher';
 
 
 class App extends React.Component {
@@ -22,34 +23,39 @@ class App extends React.Component {
 
   render() {
     return (
-      <Switch>
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <Redirect to="/login" />
-          )}
-        />
+      <div className="main-wrapper">
+        <div className="controls">
+          <ThemeSwitcher />
+        </div>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <Redirect to="/login" />
+            )}
+          />
 
-        <Route
-          exact
-          path="/login"
-          render={() => (
-            <Login />
-          )}
-        />
+          <Route
+            exact
+            path="/login"
+            render={() => (
+              <Login />
+            )}
+          />
 
-        <PrivateRoute
-          logged={this.props.isLogged}
-          path="/game"
-          render={() => (
-            <Main
-              isReady={this.props.isReady}
-              message={this.props.message}
-            />
-          )}
-        />
-      </Switch>
+          <PrivateRoute
+            logged={this.props.isLogged}
+            path="/game"
+            render={() => (
+              <Main
+                isReady={this.props.isReady}
+                message={this.props.message}
+              />
+            )}
+          />
+        </Switch>
+      </div>
     );
   }
 }
