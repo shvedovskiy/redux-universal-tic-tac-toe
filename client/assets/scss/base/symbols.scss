@@ -48,11 +48,18 @@
       margin-left: 10px;
     }
   }
+
+  &.shaded {
+    &:before, &:after {
+      background-color: #808080;
+    }
+  }
 }
 
 .o {
   display: inline-block;
   transform: translate3d(0, 0, 0);
+  border: solid #fff;
   border-radius: 50%;
 
   &.big {
@@ -63,12 +70,16 @@
     height: 70.666666667%;
     will-change: transform;
     animation: appear 0.15s cubic-bezier(0.5, 1.8, 0.1, 1.1);
-    border: 20px solid #fff;
+    border-width: 20px;
   }
 
   &.small {
-    border: 3px solid #fff;
+    border-width: 3px;
     width: 20px;
     height: 20px;
+  }
+
+  &.shaded {
+    border-color: #808080;
   }
 }

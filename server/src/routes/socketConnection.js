@@ -50,7 +50,7 @@ function calculateWinner(squares) {
     if (squares[a] &&
       squares[a] === squares[b] &&
       squares[a] === squares[c]) {
-      return true;
+      return [a, b, c];
     }
   }
 
@@ -174,9 +174,15 @@ export default function (io) {
           const haveWinner = calculateWinner(lastMove);
 
           if (haveWinner) {
-            winner = socket.username;
+            winner = {
+              username: socket.username,
+              values: haveWinner,
+            };
           } else if (haveWinner === false) {
-            winner = undefined;
+            winner = {
+              username: undefined,
+              values: null,
+            };
           }
 
           io.in(socket.room).emit('action', {

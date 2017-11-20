@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Info from '../components/Info';
 import Board from '../components/Board';
 import Modal from '../components/Modal';
-import * as actions from '../actions/index';
+import * as actions from '../actions';
 
 
 class Game extends React.Component {
@@ -15,7 +15,7 @@ class Game extends React.Component {
     message: PropTypes.string,
     xIsNext: PropTypes.bool,
     squares: PropTypes.array.isRequired,
-    winner: PropTypes.string.isRequired,
+    winner: PropTypes.object.isRequired,
     move: PropTypes.func.isRequired,
     players: PropTypes.shape({
       X: PropTypes.string.isRequired,
@@ -39,10 +39,39 @@ class Game extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    const {
-      players: { X, O }, opponent, replay,
-      logout, isReady,
-    } = this.props;
+    const { players: { X, O }, opponent, replay, logout, isReady } = this.props;
+    const winner = nextProps.winner;
+    let messages;
+
+    if (winner) {
+      messages = [
+        (
+          <div className="end-of-game">
+            <div className="end-of-game-message">
+              {
+                winner.username === undefined
+                  ? 'Tie!'
+                  : winner.username !== opponent ? 'You win!' : `${winner} win!`
+              }
+            </div>
+            <div className="end-of-game-buttons">
+              <button className={classNames('btn', 'game-button')} onClick={replay}>Replay</button>
+              <button className={classNames('btn', 'game-button')} onClick={logout}>Logout</button>
+            </div>
+          </div>
+        ),
+      ];
+    } else if (!isReady) {
+      messages = [
+        'Wait for replay...',
+      ];
+    } else {
+      messages = [
+        nextProps.xIsNext
+          ? `${X} moved ${this.coordinates[nextProps.lastMoveNumber]}`
+          : `${O} moved ${this.coordinates[nextProps.lastMoveNumber]}`,
+      ];
+    }
 
     this.setState((prevState) => {
       if (!prevState.messages.length && !prevState.disabled) { // start of game
@@ -52,37 +81,6 @@ class Game extends React.Component {
           ],
           disabled: nextProps.players.X === opponent,
         };
-      }
-
-      let messages;
-      if (nextProps.winner === undefined || nextProps.winner) {
-        messages = [
-          (
-            <div className="end-of-game">
-              <div className="end-of-game-message">
-                {
-                  nextProps.winner === undefined
-                    ? 'Tie!'
-                    : nextProps.winner !== opponent ? 'You win!' : `${nextProps.winner} win!`
-                }
-              </div>
-              <div className="end-of-game-buttons">
-                <button className={classNames('btn', 'game-button')} onClick={replay}>Replay</button>
-                <button className={classNames('btn', 'game-button')} onClick={logout}>Logout</button>
-              </div>
-            </div>
-          ),
-        ];
-      } else if (!isReady) {
-        messages = [
-          'Wait for replay...',
-        ];
-      } else {
-        messages = [
-          nextProps.xIsNext
-            ? `${X} moved ${this.coordinates[nextProps.lastMoveNumber]}`
-            : `${O} moved ${this.coordinates[nextProps.lastMoveNumber]}`,
-        ];
       }
 
       return {
@@ -123,6 +121,7 @@ class Game extends React.Component {
               disabled={this.state.disabled}
               move={this.props.move}
               squares={this.props.squares}
+              winner={this.props.winner}
             />
           </Info>
         )

@@ -9,11 +9,13 @@ export default class Board extends React.Component {
     disabled: PropTypes.bool.isRequired,
     move: PropTypes.func.isRequired,
     squares: PropTypes.array.isRequired,
+    winner: PropTypes.object.isRequired,
   };
 
   renderSquare(i) {
     return (
       <Square
+        shaded={this.props.winner && !this.props.winner.values.includes(i)}
         disabled={this.props.disabled}
         value={this.props.squares[i]}
         onClick={() => this.props.move(i)}
