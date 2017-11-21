@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import express from 'express';
-// import favicon from 'serve-favicon';
 import Server from 'socket.io';
 import { Server as httpServer } from 'http';
 import ssrRouter from './routes/ssr';
@@ -23,7 +22,6 @@ app.set('port', port);
 
 
 app.set('view engine', 'ejs');
-// app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')));
 app.use(express.static('public'));
 app.use('/*', ssrRouter);
 app.use((req, res, next) => {
@@ -67,4 +65,4 @@ server.on('listening', () => {
   console.info(`==> 🌎  Listening on port ${bind}. Open up http://localhost:${addr.port}/ in your browser.`);
 });
 
-io.on('connection', connectionHandler(io));
+io.on('connection', connectionHandler(io, server.address()));
