@@ -6,6 +6,7 @@ import Login from './Login';
 import Main from '../components/Main';
 import PrivateRoute from '../util/PrivateRoute';
 import ThemeSwitcher from '../components/ThemeSwitcher';
+import MuteSwitcher from '../components/MuteSwitcher';
 
 
 class App extends React.Component {
@@ -26,6 +27,7 @@ class App extends React.Component {
       <div className="main-wrapper">
         <div className="controls">
           <ThemeSwitcher />
+          <MuteSwitcher />
         </div>
         <Switch>
           <Route
