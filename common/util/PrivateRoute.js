@@ -21,7 +21,10 @@ const PrivateRoute = ({ render, logged, ...rest }) => (
 PrivateRoute.propTypes = {
   render: PropTypes.func.isRequired,
   logged: PropTypes.bool.isRequired,
-  location: PropTypes.string,
+  location: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]),
 };
 
 PrivateRoute.defaultProps = {
