@@ -6,6 +6,7 @@ import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 import { AppContainer } from 'react-hot-loader';
 import configureStore from '../common/store/configureStore';
 import App from '../common/containers/App';
+import './assets/images/favicons';
 
 
 const preloadedState = window.__INITIAL_STATE__; // eslint-disable-line
