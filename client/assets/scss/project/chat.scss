@@ -1,5 +1,6 @@
 .chat {
-  flex-grow: 1;
+  flex-basis: 35%;
+  flex-grow: 0;
   justify-self: stretch;
   display: flex;
   flex-direction: column;
@@ -26,11 +27,11 @@
 
   .message {
     padding: 8px 20px;
+    @include word-wrap();
 
     &.log {
       color: #808080;
       font-style: italic;
-      font-size: 90%;
       text-align: center;
     }
 

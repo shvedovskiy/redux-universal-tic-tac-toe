@@ -21,6 +21,16 @@
     color: #000;
     padding: 60px 45px;
     background-color: #fff;
+
+    @include word-wrap();
+
+    @media screen and (max-width: 915px) {
+      max-width: 50%;
+    }
+
+    @media screen and (max-width: 360px) {
+      max-width: 75%;
+    }
   }
 
   .message-content {

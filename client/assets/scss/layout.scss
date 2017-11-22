@@ -19,6 +19,7 @@ ul {
   word-wrap: break-word;
 }
 
+@import './util/mixins';
 @import './base/modal';
 @import './base/button';
 @import './base/page';

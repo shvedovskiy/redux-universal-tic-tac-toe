@@ -1,10 +1,30 @@
 .players {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  text-align: center;
   color: #fff;
   font-size: 250%;
   font-weight: 100;
+  line-height: 1.5;
+
+  @media screen and (max-width: 950px), (max-height: 810px) {
+    font-size: 150%;
+
+    .player {
+      .x:before,
+      .x:after {
+        top: 5px;
+        width: 2px;
+        height: 20px;
+      }
+
+      .o {
+        top: 2px;
+        width: 18px;
+        height: 18px;
+        border-width: 2px;
+      }
+    }
+  }
 
   .player.next {
     color: rgba(255, 255, 255, 0.5);
