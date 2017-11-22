@@ -1,12 +1,12 @@
 @import '../base/switcher';
 
 .controls {
+  flex-grow: 0;
+  flex-shrink: 0;
   display: flex;
   justify-content: space-between;
-  height: 47px;
-  padding-top: 15px;
-  padding-left: 20px;
-  padding-right: 20px;
+  height: 52px;
+  padding: 10px 20px;
 
   .theme,
   .mute {

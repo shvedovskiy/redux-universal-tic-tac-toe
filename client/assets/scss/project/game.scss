@@ -20,6 +20,25 @@
     width: 600px;
     height: 600px;
 
+    @media screen and (max-width: 630px), (max-height: 760px) {
+      width: 450px;
+      height: 450px;
+
+      .x:before, .x:after {
+        top: 8px;
+        left: 65px;
+        width: 14px;
+        height: 130px;
+        border-radius: 4px;
+      }
+
+      .o {
+        top: 24px;
+        left: 24px;
+        border-width: 13px;
+      }
+    }
+
     .square {
       padding: 0;
 
