@@ -18,7 +18,10 @@
   .theme-switcher {
     @extend .switcher;
 
+    user-select: none;
+
     .theme-switcher-icon {
+      transition: opacity 0.2s linear;
       opacity: 0.5;
     }
 
@@ -29,6 +32,10 @@
 
   .mute-switcher {
     @extend .switcher;
+
+    g {
+      transition: fill 0.2s linear;
+    }
 
     &:hover g {
       fill: #fff;
