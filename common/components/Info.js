@@ -31,12 +31,10 @@ export default class GamePage extends React.Component {
     return (
       <div className="game">
         <div className="players">
-          Move:&nbsp;
-          <span className={classNames('player', { next: !winner && xIsNext })}>
+          Move: <span className={classNames('player', { next: !winner && xIsNext })}>
             {opponent === X ? X : 'You'} (<span className={classNames('small', 'x')} />)
           </span>
-          &nbsp;&mdash;&nbsp;
-          <span className={classNames('player', { next: !winner && !xIsNext })}>
+          &nbsp;&mdash; <span className={classNames('player', { next: !winner && !xIsNext })}>
             {opponent === O ? O : 'You'} (<span className={classNames('small', 'o')} />)
           </span>
         </div>

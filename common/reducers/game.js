@@ -26,28 +26,16 @@ const game = (state = initialState, action) => {
       };
     }
     case MOVED: {
-      let disabled = false;
-      if (action.winner === undefined || action.winner) {
-        disabled = true;
-      }
-
       return {
         ...state,
         squares: action.squares,
         lastMoveNumber: action.lastMoveNumber,
         winner: action.winner,
         xIsNext: !state.xIsNext,
-        disabled,
       };
     }
     case SUCCESSFULLY_REPLAY: {
-      return {
-        ...state,
-        isReady: !state.isReady,
-        winner: null,
-        xIsNext: false,
-        squares: initialState.squares,
-      };
+      return initialState;
     }
     default: {
       return state;

@@ -27,6 +27,20 @@
 // };
 import DataAccessError from '../../common/util/DataAccessError';
 
+const initialGame = {
+  X: null,
+  O: null,
+  winner: false,
+  xIsNext: false,
+  stepNumber: 0,
+  history: [
+    {
+      squares: Array(9).fill(null),
+    },
+  ],
+  replay: false,
+};
+
 
 class Data {
   constructor() {
@@ -45,19 +59,7 @@ class Data {
         playerNames: {
           [id]: username,
         },
-        game: {
-          X: null,
-          O: null,
-          winner: null,
-          xIsNext: false,
-          stepNumber: 0,
-          history: [
-            {
-              squares: Array(9).fill(null),
-            },
-          ],
-          replay: false,
-        },
+        game: initialGame,
       };
     } else {
       throw new DataAccessError(`User ${id} already connected`);
@@ -88,6 +90,16 @@ class Data {
 
   getPlayerName(playerId, roomId = this.roomId) {
     return this.data[roomId].playerNames[playerId];
+  }
+
+  getOpponentName(playerId, roomId = this.roomId) {
+    const playerNames = this.data[roomId].playerNames;
+    for (const id of Object.keys(playerNames)) {
+      if (id !== playerId) {
+        return playerNames[id];
+      }
+    }
+    return null;
   }
 
   setXO({ X, O }, roomId = this.roomId) {
@@ -125,16 +137,16 @@ class Data {
     return last.squares;
   }
 
+  endOfGame(roomId = this.roomId) {
+    const game = this.data[roomId].game;
+    game.winner = true;
+  }
+
   replay(roomId = this.roomId) {
     const game = this.data[roomId].game;
-    game.xIsNext = true;
-    game.winner = null;
-    game.stepNumber = 0;
-    game.history = [
-      {
-        squares: new Array(9).fill(null),
-      },
-    ];
+    if (game.replay) {
+      this.data[roomId].game = initialGame;
+    }
     game.replay = !game.replay;
   }
 

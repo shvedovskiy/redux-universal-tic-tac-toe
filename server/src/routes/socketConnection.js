@@ -178,11 +178,13 @@ export default function (io, addr) {
               username: socket.username,
               values: haveWinner,
             };
+            data.endOfGame();
           } else if (haveWinner === false) {
             winner = {
               username: undefined,
               values: null,
             };
+            data.endOfGame();
           }
 
           io.in(socket.room).emit('action', {
@@ -227,7 +229,7 @@ export default function (io, addr) {
         case REPLAY: {
           data.setRoomId(socket.room);
           const game = data.get().game;
-          if (game.winner) {
+          if (!game.winner) {
             return;
           }
 
@@ -235,9 +237,9 @@ export default function (io, addr) {
             type: SUCCESSFULLY_REPLAY,
           });
 
-          if (game.replay) { // второй игрок пока не начал игру заново
-            data.replay();
-            const opponentName = game.X === socket.username ? game.O : game.X;
+          data.replay();
+          if (!game.replay) { // второй игрок начал игру заново
+            const opponentName = data.getOpponentName(socket.id);
             const X_O = assignXO(opponentName, socket.username);
             data.setXO(X_O);
 
