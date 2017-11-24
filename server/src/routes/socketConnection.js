@@ -16,6 +16,7 @@ import {
   REPLAY,
   SET_X_O,
   SUCCESSFULLY_REPLAY,
+  LEAVE_GAME,
 } from '../../../common/constants/gameActionTypes';
 import {
   NEW_MESSAGE,
@@ -261,6 +262,9 @@ export default function (io, addr) {
           if (data.removeRoom(socket.id)) {
             socket.emit('action', {
               type: SUCCESSFULLY_LOGOUT,
+            });
+            socket.emit('action', {
+              type: LEAVE_GAME,
             });
             socket.to(socket.room).emit('action', {
               type: USER_LEFT,

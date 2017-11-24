@@ -2,6 +2,7 @@ import {
   MOVED,
   SET_X_O,
   SUCCESSFULLY_REPLAY,
+  LEAVE_GAME,
 } from '../constants/gameActionTypes';
 
 
@@ -34,6 +35,7 @@ const game = (state = initialState, action) => {
         xIsNext: !state.xIsNext,
       };
     }
+    case LEAVE_GAME:
     case SUCCESSFULLY_REPLAY: {
       return initialState;
     }
