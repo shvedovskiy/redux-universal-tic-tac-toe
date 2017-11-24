@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Info from '../components/Info';
 import Board from '../components/Board';
 import Modal from '../components/Modal';
+import EndOfGame from '../components/EndOfGame';
 import * as actions from '../actions';
 
 
-class Game extends React.Component {
+class Game extends React.PureComponent {
   static propTypes = {
     lastMoveNumber: PropTypes.number,
     opponent: PropTypes.string,
@@ -24,6 +26,7 @@ class Game extends React.Component {
     isReady: PropTypes.bool.isRequired,
     replay: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
   };
 
   static defaultProps = {
@@ -38,40 +41,37 @@ class Game extends React.Component {
     disabled: null,
   };
 
+  componentDidMount() {
+    this.unblock = this.props.history.block(() => {
+      if (window && window.confirm('Are you sure you want to leave this page?')) {
+        this.props.logout();
+        return true;
+      }
+      return false;
+    });
+  }
+
   componentWillReceiveProps(nextProps) {
-    const { players: { X, O }, opponent, replay, logout, isReady } = this.props;
+    const { players: { X, O }, opponent, replay, logout, isReady, xIsNext } = this.props;
     const winner = nextProps.winner;
     let messages = this.state.infoMessages;
 
     if (!isReady) {
-      messages = [
-        'Game started',
-      ];
+      messages = ['Game started'];
     } else if (winner) {
       messages = [
-        (
-          <div className="end-of-game">
-            <div className="end-of-game-message">
-              {
-                winner.username === undefined
-                  ? 'Tie!'
-                  : winner.username !== opponent
-                    ? 'You win!'
-                    : `${winner.username} win!`
-              }
-            </div>
-            <div className="end-of-game-buttons">
-              <button className={classNames('btn', 'game-button')} onClick={replay}>Replay</button>
-              <button className={classNames('btn', 'game-button')} onClick={logout}>Logout</button>
-            </div>
-          </div>
-        ),
+        <EndOfGame replay={replay} logout={logout}>
+          {
+            winner.username === undefined
+              ? 'Tie!'
+              : winner.username !== opponent
+                ? 'You win!' : `${winner.username} win!`
+          }
+        </EndOfGame>,
       ];
     } else if (!nextProps.isReady) {
-      messages = [
-        'Wait for replay...',
-      ];
-    } else {
+      messages = ['Wait for replay...'];
+    } else if (nextProps.xIsNext !== xIsNext) {
       messages = [
         nextProps.xIsNext
           ? `${X} moved ${this.coordinates[nextProps.lastMoveNumber]}`
@@ -79,14 +79,25 @@ class Game extends React.Component {
       ];
     }
 
-    this.setState(prevState => ({
-      infoMessages: messages,
-      disabled: !this.props.isReady
-        ? nextProps.players.X === opponent // start of game
-        : winner
-          ? true
-          : !prevState.disabled,
-    }));
+    this.setState((prevState) => {
+      let disabled = prevState.disabled;
+      if (!this.props.isReady) {
+        disabled = nextProps.players.X === opponent;
+      } else if (winner) {
+        disabled = true;
+      } else if (nextProps.xIsNext !== xIsNext) {
+        disabled = !prevState.disabled;
+      }
+
+      return {
+        infoMessages: messages,
+        disabled,
+      };
+    });
+  }
+
+  componentWillUnmount() {
+    this.unblock();
   }
 
   coordinates = [
@@ -138,6 +149,7 @@ const mapStateToProps = state => ({
   winner: state.game.winner,
   xIsNext: state.game.xIsNext,
   isReady: state.game.isReady,
+  location: state.router.location,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -152,4 +164,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Game);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Game));

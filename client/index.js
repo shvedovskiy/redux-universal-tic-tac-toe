@@ -2,31 +2,44 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, withRouter } from 'react-router-dom';
-import { AppContainer } from 'react-hot-loader';
+import { ConnectedRouter } from 'react-router-redux';
+import createHistory from 'history/createBrowserHistory';
+// import { AppContainer } from 'react-hot-loader';
 import configureStore from '../common/store/configureStore';
 import App from '../common/containers/App';
 import './assets/images/favicons';
 
+const history = createHistory();
 
 const preloadedState = window.__INITIAL_STATE__; // eslint-disable-line
 delete window.__INITIAL_STATE__; // eslint-disable-line
-const store = configureStore(preloadedState);
+const store = configureStore(preloadedState, history);
 
 const render = (Component) => {
   ReactDOM.hydrate(
-    <AppContainer>
-      <Provider store={store}>
-        <Router>
-          <Component />
-        </Router>
-      </Provider>
-    </AppContainer>,
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <Component />
+      </ConnectedRouter>
+    </Provider>,
     document.getElementById('app'),
   );
 };
 
-render(withRouter(App));
+// const render = (Component) => {
+//   ReactDOM.hydrate(
+//     <AppContainer>
+//       <Provider store={store}>
+//         <Router>
+//           <Component />
+//         </Router>
+//       </Provider>
+//     </AppContainer>,
+//     document.getElementById('app'),
+//   );
+// };
+
+render(App);
 
 if (module.hot) {
   module.hot.accept('./app', () => {

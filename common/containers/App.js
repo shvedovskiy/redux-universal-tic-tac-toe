@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import Login from './Login';
 import Main from '../components/Main';
 import PrivateRoute from '../util/PrivateRoute';
@@ -68,4 +68,4 @@ const mapStateToProps = state => ({
   message: state.user.message,
 });
 
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));
