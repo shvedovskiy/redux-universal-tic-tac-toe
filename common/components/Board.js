@@ -10,12 +10,13 @@ export default class Board extends React.Component {
     move: PropTypes.func.isRequired,
     squares: PropTypes.array.isRequired,
     winner: PropTypes.object.isRequired,
+    sound: PropTypes.object.isRequired,
   };
 
   renderSquare(i) {
     return (
       <Square
-        shaded={this.props.winner && !this.props.winner.values.includes(i)}
+        shaded={this.props.winner && this.props.values && !this.props.winner.values.includes(i)}
         disabled={this.props.disabled}
         value={this.props.squares[i]}
         onClick={() => this.props.move(i)}
@@ -24,6 +25,9 @@ export default class Board extends React.Component {
   }
 
   render() {
+    if (this.props.sound) {
+      this.props.sound.play();
+    }
     return (
       <div className="game-board">
         <div className={classNames('square', 'top', 'left')}>

@@ -8,6 +8,10 @@ import Board from '../components/Board';
 import Modal from '../components/Modal';
 import EndOfGame from '../components/EndOfGame';
 import * as actions from '../actions';
+import moveHigh from '../../client/assets/sounds/note-high.wav';
+import moveLow from '../../client/assets/sounds/note-low.wav';
+import gameOver from '../../client/assets/sounds/game-over.wav';
+import gameOverTie from '../../client/assets/sounds/game-over-tie.wav';
 
 
 class Game extends React.PureComponent {
@@ -39,10 +43,12 @@ class Game extends React.PureComponent {
   state = {
     infoMessages: [],
     disabled: null,
+    sound: null,
   };
 
   componentDidMount() {
     this.unblock = this.props.history.block(() => {
+      // eslint-disable-next-line no-alert
       if (window && window.confirm('Are you sure you want to leave this page?')) {
         this.props.logout();
         return true;
@@ -55,18 +61,25 @@ class Game extends React.PureComponent {
     const { players: { X, O }, opponent, replay, logout, isReady, xIsNext } = this.props;
     const winner = nextProps.winner;
     let messages = this.state.infoMessages;
+    let sound = this.state.sound;
 
     if (!isReady) {
       messages = ['Game started'];
+      sound = null;
     } else if (winner) {
+      let messageText;
+      if (winner.username === undefined) {
+        messageText = 'Tie!';
+        sound = this.sounds[3];
+      } else {
+        messageText = winner.username !== opponent
+          ? 'You win!'
+          : `${winner.username} win!`;
+        sound = this.sounds[2];
+      }
       messages = [
         <EndOfGame replay={replay} logout={logout}>
-          {
-            winner.username === undefined
-              ? 'Tie!'
-              : winner.username !== opponent
-                ? 'You win!' : `${winner.username} win!`
-          }
+          {messageText}
         </EndOfGame>,
       ];
     } else if (!nextProps.isReady) {
@@ -77,6 +90,9 @@ class Game extends React.PureComponent {
           ? `${X} moved ${this.coordinates[nextProps.lastMoveNumber]}`
           : `${O} moved ${this.coordinates[nextProps.lastMoveNumber]}`,
       ];
+      sound = (nextProps.xIsNext && X === opponent) || (!nextProps.xIsNext && O === opponent)
+        ? this.sounds[1]
+        : this.sounds[0];
     }
 
     this.setState((prevState) => {
@@ -92,6 +108,7 @@ class Game extends React.PureComponent {
       return {
         infoMessages: messages,
         disabled,
+        sound,
       };
     });
   }
@@ -99,6 +116,13 @@ class Game extends React.PureComponent {
   componentWillUnmount() {
     this.unblock();
   }
+
+  sounds = [
+    new Audio(moveHigh),
+    new Audio(moveLow),
+    new Audio(gameOver),
+    new Audio(gameOverTie),
+  ];
 
   coordinates = [
     '(1, 1)', '(1, 2)', '(1, 3)',
@@ -131,6 +155,7 @@ class Game extends React.PureComponent {
           move={this.props.move}
           squares={this.props.squares}
           winner={this.props.winner}
+          sound={this.state.sound}
         />
       </Info>
     );

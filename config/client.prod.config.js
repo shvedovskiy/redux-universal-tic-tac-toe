@@ -56,6 +56,15 @@ module.exports = {
           }
         }]
       },
+      {
+        test: /\.wav$/,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            outputPath: 'sounds/',
+          }
+        }]
+      },
     ],
   },
   plugins: [
