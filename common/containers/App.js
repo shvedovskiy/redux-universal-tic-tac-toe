@@ -7,6 +7,7 @@ import Main from '../components/Main';
 import PrivateRoute from '../util/PrivateRoute';
 import ThemeSwitcher from '../components/ThemeSwitcher';
 import MuteSwitcher from '../components/MuteSwitcher';
+import { toggleMute } from '../actions';
 
 
 class App extends React.Component {
@@ -14,6 +15,7 @@ class App extends React.Component {
     isReady: PropTypes.bool,
     isLogged: PropTypes.bool,
     message: PropTypes.string,
+    toggleMute: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -27,7 +29,7 @@ class App extends React.Component {
       <div className="main-wrapper">
         <div className="controls">
           <ThemeSwitcher />
-          <MuteSwitcher />
+          <MuteSwitcher onToggleMute={this.props.toggleMute} />
         </div>
         <Switch>
           <Route
@@ -68,4 +70,10 @@ const mapStateToProps = state => ({
   message: state.user.message,
 });
 
-export default withRouter(connect(mapStateToProps)(App));
+const mapDispatchToProps = dispatch => ({
+  toggleMute(muteIsActive) {
+    dispatch(toggleMute(muteIsActive));
+  },
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

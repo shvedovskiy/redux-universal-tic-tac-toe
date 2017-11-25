@@ -6,6 +6,7 @@ import {
 import {
   MOVE,
   REPLAY,
+  TOGGLE_MUTE,
 } from '../constants/gameActionTypes';
 import {
   SEND_MESSAGE,
@@ -58,4 +59,9 @@ export const logout = () => ({
 
 export const replay = () => ({
   type: REPLAY,
+});
+
+export const toggleMute = muteIsActive => ({
+  type: TOGGLE_MUTE,
+  muteIsActive,
 });

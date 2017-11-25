@@ -31,6 +31,7 @@ class Game extends React.PureComponent {
     replay: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
+    muteIsActive: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -156,6 +157,7 @@ class Game extends React.PureComponent {
           squares={this.props.squares}
           winner={this.props.winner}
           sound={this.state.sound}
+          muteIsActive={this.props.muteIsActive}
         />
       </Info>
     );
@@ -174,6 +176,7 @@ const mapStateToProps = state => ({
   winner: state.game.winner,
   xIsNext: state.game.xIsNext,
   isReady: state.game.isReady,
+  muteIsActive: state.game.muteIsActive,
   location: state.router.location,
 });
 

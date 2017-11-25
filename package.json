@@ -8,7 +8,7 @@
     "build": "npm run build:client && npm run build:server",
     "build:server": "cross-env NODE_ENV=production webpack --config config/server.prod.config.js --progress",
     "build:client": "cross-env NODE_ENV=production webpack --config config/client.prod.config.js --progress",
-    "start": "npm run build && cd server && node bin/server.js",
+    "start": "cd server && node bin/server.js",
     "lint": "eslint --ext .jsx,.js ./"
   },
   "repository": {

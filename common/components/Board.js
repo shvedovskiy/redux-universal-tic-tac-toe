@@ -11,6 +11,7 @@ export default class Board extends React.Component {
     squares: PropTypes.array.isRequired,
     winner: PropTypes.object.isRequired,
     sound: PropTypes.object.isRequired,
+    muteIsActive: PropTypes.bool.isRequired,
   };
 
   renderSquare(i) {
@@ -29,7 +30,7 @@ export default class Board extends React.Component {
   }
 
   render() {
-    if (this.props.sound) {
+    if (!this.props.muteIsActive && this.props.sound) {
       this.props.sound.play();
     }
     return (
