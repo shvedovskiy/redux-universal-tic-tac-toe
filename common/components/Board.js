@@ -16,7 +16,11 @@ export default class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
-        shaded={this.props.winner && this.props.values && !this.props.winner.values.includes(i)}
+        shaded={
+          this.props.winner &&
+          this.props.winner.values &&
+          !this.props.winner.values.includes(i)
+        }
         disabled={this.props.disabled}
         value={this.props.squares[i]}
         onClick={() => this.props.move(i)}
