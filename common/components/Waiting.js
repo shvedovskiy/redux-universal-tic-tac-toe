@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 
-export default class Waiting extends React.Component {
+export default class Waiting extends React.PureComponent {
   static propTypes = {
     message: PropTypes.string,
   };

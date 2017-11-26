@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 
-export default class MessageList extends React.Component {
+export default class MessageList extends React.PureComponent {
   static defaultProps = {
     messages: [],
   };

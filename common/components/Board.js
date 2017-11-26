@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Square from './Square';
 
 
-export default class Board extends React.Component {
+export default class Board extends React.PureComponent {
   static propTypes = {
     disabled: PropTypes.bool.isRequired,
     move: PropTypes.func.isRequired,

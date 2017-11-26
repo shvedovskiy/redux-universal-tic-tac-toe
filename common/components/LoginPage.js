@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 
-export default class LoginPage extends React.Component {
+export default class LoginPage extends React.PureComponent {
   static propTypes = {
     username: PropTypes.string,
     error: PropTypes.string,

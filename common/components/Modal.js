@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 
-export default class Modal extends React.Component {
+export default class Modal extends React.PureComponent {
   static propTypes = {
     children: PropTypes.element.isRequired,
     // status: PropTypes.bool.isRequired,

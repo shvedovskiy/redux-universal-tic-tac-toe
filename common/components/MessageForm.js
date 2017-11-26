@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-export default class MessageForm extends React.Component {
+export default class MessageForm extends React.PureComponent {
   static TYPING_TIMER_LENGTH = 600;
   static defaultProps = {
     connected: false,
