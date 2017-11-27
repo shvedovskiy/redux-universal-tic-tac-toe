@@ -10,7 +10,7 @@
 //     game: {
 //       X: this.playerNames[this.owner] == 'alex' || null,
 //       O: this.playerNames[this.invited] == 'bob' || null,
-//       winner: 'alex' || null,
+//       winner: true,
 //       xIsNext: true,
 //       stepNumber: 0,
 //       history: [
@@ -27,7 +27,8 @@
 // };
 import DataAccessError from '../../common/util/DataAccessError';
 
-const initialGame = {
+
+const initialGameState = {
   X: null,
   O: null,
   winner: false,
@@ -35,16 +36,15 @@ const initialGame = {
   stepNumber: 0,
   history: [
     {
-      squares: Array(9).fill(null),
+      squares: new Array(9).fill(null),
     },
   ],
   replay: false,
 };
 
-
 class Data {
-  constructor() {
-    this.data = {};
+  constructor(data) {
+    this.data = data || {};
   }
 
   setRoomId(roomId) {
@@ -52,75 +52,82 @@ class Data {
   }
 
   addRoomForOwner(roomId, id, username) {
-    if (!this.data.hasOwnProperty(roomId)) {
-      this.data[roomId] = {
-        owner: id,
-        invited: null,
-        playerNames: {
-          [id]: username,
-        },
-        game: initialGame,
-      };
-    } else {
-      throw new DataAccessError(`User ${id} already connected`);
+    if (this.data.hasOwnProperty(roomId)) {
+      throw new DataAccessError(`User ${id} already have a room`);
     }
 
+    this.data[roomId] = {
+      owner: id,
+      invited: null,
+      playerNames: {
+        [id]: username,
+      },
+      game: initialGameState,
+    };
     this.setRoomId(roomId);
-    return this.data;
+
+    return this.data[roomId];
   }
 
   addInvitedUser(id, username, roomId = this.roomId) {
     if (!this.data.hasOwnProperty(roomId)) {
-      throw new DataAccessError(`No rooms for id ${roomId}`);
+      throw new DataAccessError(`No available rooms with id ${roomId}`);
     }
 
     const room = this.data[roomId];
+
+    if (room.invited) {
+      throw new DataAccessError('Only 1 invited player passed for room');
+    } else if (Object.values(room.playerNames).includes(username)) {
+      throw new DataAccessError('Duplicate name with opponent');
+    }
     room.invited = id;
     room.playerNames[id] = username;
 
-    return this.data;
+    return room;
   }
 
-  get(roomId = this.roomId) {
-    if (this.data.hasOwnProperty(roomId)) {
-      return this.data[roomId];
+  getRoom(roomId = this.roomId) {
+    if (!this.data.hasOwnProperty(roomId)) {
+      throw DataAccessError(`No such rooms for id ${roomId}`);
     }
-    throw DataAccessError(`No such rooms for id ${roomId}`);
+
+    return this.data[roomId];
   }
 
   getPlayerName(playerId, roomId = this.roomId) {
-    return this.data[roomId].playerNames[playerId];
+    return this.getRoom(roomId).playerNames[playerId];
   }
 
   getOpponentName(playerId, roomId = this.roomId) {
-    const playerNames = this.data[roomId].playerNames;
-    for (const id of Object.keys(playerNames)) {
-      if (id !== playerId) {
-        return playerNames[id];
-      }
-    }
-    return null;
+    const playerNames = this.getRoom(roomId).playerNames;
+    const opponentId = Object.keys(playerNames).find(id => id !== playerId);
+    return opponentId ? playerNames[opponentId] : null;
   }
 
   setXO({ X, O }, roomId = this.roomId) {
-    this.data[roomId].game = {
-      ...this.data[roomId].game,
+    const room = this.getRoom(roomId);
+    room.game = {
+      ...room.game,
       X,
       O,
     };
+    return true;
   }
 
   move(i, roomId = this.roomId) {
-    const game = this.data[roomId].game;
+    const game = this.getRoom(roomId).game;
+    if (!game.X || !game.O) {
+      throw DataAccessError('Illegal game state');
+    }
     const [current] = [...game.history].reverse();
     const squares = [...current.squares];
 
-    if (squares[i]) {
-      return;
+    if (i > squares.length - 1 || i < 0 || squares[i]) {
+      return null;
     }
 
     squares[i] = game.xIsNext ? 'O' : 'X';
-
     game.history = [
       ...game.history,
       {
@@ -129,45 +136,54 @@ class Data {
     ];
     game.stepNumber += 1;
     game.xIsNext = !game.xIsNext;
-  }
-
-  getLastMove(roomId = this.roomId) {
-    const history = this.data[roomId].game.history;
-    const [last] = [...history].reverse();
-    return last.squares;
+    return squares;
   }
 
   endOfGame(roomId = this.roomId) {
-    const game = this.data[roomId].game;
-    game.winner = true;
+    const game = this.getRoom(roomId).game;
+    if (!game.winner) {
+      game.winner = true;
+      return true;
+    }
+    return null;
   }
 
   replay(roomId = this.roomId) {
-    const game = this.data[roomId].game;
-    if (game.replay) {
-      this.data[roomId].game = initialGame;
+    const game = this.getRoom(roomId).game;
+    if (game.winner) {
+      if (game.replay) {
+        this.data[roomId].game = initialGameState;
+      }
+      game.replay = !game.replay;
+      return true;
     }
-    game.replay = !game.replay;
+    return null;
   }
 
   removeRoom(id, roomId = this.roomId) {
-    const room = this.data[roomId];
-
-    if (!room) {
+    let room;
+    try {
+      room = this.getRoom(roomId);
+    } catch (e) {
       return true;
-    } else if (room.owner !== id) {
-      const name = room.invited;
+    }
+
+    if (!Object.keys(room.playerNames).includes(id)) {
+      return null;
+    }
+
+    if (room.owner !== id && room.invited === id) {
       room.invited = null;
+      const name = room.playerNames[id];
       delete room.playerNames[id];
       if (room.game.X === name) {
         room.game.X = null;
       } else {
         room.game.O = null;
       }
-      return true;
+    } else {
+      delete this.getRoom(roomId);
     }
-
-    delete this.data[roomId];
     return true;
   }
 }

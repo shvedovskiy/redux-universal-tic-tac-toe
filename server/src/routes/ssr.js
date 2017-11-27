@@ -19,13 +19,13 @@ router.get('/', (req, res) => {
   const store = createStore(rootReducer);
 
   if (req.query.invite) {
-    const id = req.query.invite;
+    const invitedId = req.query.invite;
     let opponentName;
     let err;
 
     try {
-      data.setRoomId(`room-${id}`);
-      opponentName = data.get().playerNames[id];
+      data.setRoomId(`room-${invitedId}`);
+      opponentName = data.getOpponentName(invitedId);
     } catch (e) {
       err = true;
       store.dispatch({
@@ -38,13 +38,12 @@ router.get('/', (req, res) => {
       store.dispatch({
         type: ADD_OPPONENT,
         opponent: opponentName,
-        invitedId: id,
+        invitedId,
       });
     }
   }
 
   const context = {};
-
   const html = ReactDOMServer.renderToString(
     <Provider store={store}>
       <StaticRouter
@@ -55,7 +54,6 @@ router.get('/', (req, res) => {
       </StaticRouter>
     </Provider>,
   );
-
   const finalState = store.getState();
 
   if (context.url) {

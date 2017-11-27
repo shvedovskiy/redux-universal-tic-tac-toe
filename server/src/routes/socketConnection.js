@@ -73,8 +73,8 @@ export default function (io, addr) {
             return;
           }
 
-          socket.username = action.username;
           addedUser = true;
+          socket.username = action.username;
           room = `room-${socket.id}`;
           socket.join(room);
           socket.room = room;
@@ -101,34 +101,11 @@ export default function (io, addr) {
             return;
           }
 
-          const invitedId = action.invitedId;
-          room = `room-${invitedId}`;
-
-          data.setRoomId(room);
-
-          if (data.get().invited) {
-            socket.emit('action', {
-              type: ERROR_LOGIN,
-              error: 'Only 1 invited player passed for room',
-            });
-            return;
-          }
-
           socket.username = action.username;
           addedUser = true;
-
-          socket.join(room);
-          socket.room = room;
-
-          const opponentName = data.getPlayerName(invitedId);
-
-          if (socket.username === opponentName) {
-            socket.emit('action', {
-              type: ERROR_LOGIN,
-              error: 'Duplicate name with opponent',
-            });
-            return;
-          }
+          const invitedId = action.invitedId;
+          room = `room-${invitedId}`;
+          data.setRoomId(room);
 
           try {
             data.addInvitedUser(socket.id, socket.username);
@@ -137,8 +114,13 @@ export default function (io, addr) {
               type: ERROR_LOGIN,
               error: e.message,
             });
+            return;
           }
 
+          socket.join(room);
+          socket.room = room;
+
+          const opponentName = data.getOpponentName(socket.username);
           socket.emit('action', {
             type: INVITED_USER_ADDED,
             username: socket.username,
@@ -151,7 +133,6 @@ export default function (io, addr) {
 
           const X_O = assignXO(opponentName, socket.username);
           data.setXO(X_O);
-
           io.in(socket.room).emit('action', {
             type: SET_X_O,
             ...X_O,
@@ -160,7 +141,13 @@ export default function (io, addr) {
         }
         case MOVE: {
           data.setRoomId(socket.room);
-          const game = data.get().game;
+          let game;
+          try {
+            game = data.getRoom().game;
+          } catch (e) {
+            return;
+          }
+
           if (
             (game.xIsNext === true && socket.username !== game.O) ||
             (game.xIsNext === false && socket.username !== game.X)
@@ -168,24 +155,36 @@ export default function (io, addr) {
             return;
           }
 
-          data.move(action.number);
+          let lastMove;
+          try {
+            lastMove = data.move(action.number);
+          } catch (e) {
+            return;
+          }
+          if (!lastMove) {
+            return;
+          }
 
-          const lastMove = data.getLastMove();
           let winner = null;
           const haveWinner = calculateWinner(lastMove);
 
+          let successfulEndOfGame = true;
           if (haveWinner) {
             winner = {
               username: socket.username,
               values: haveWinner,
             };
-            data.endOfGame();
+            successfulEndOfGame = data.endOfGame();
           } else if (haveWinner === false) {
             winner = {
               username: undefined,
               values: null,
             };
-            data.endOfGame();
+            successfulEndOfGame = data.endOfGame();
+          }
+
+          if (!successfulEndOfGame) {
+            return;
           }
 
           io.in(socket.room).emit('action', {
@@ -229,7 +228,12 @@ export default function (io, addr) {
 
         case REPLAY: {
           data.setRoomId(socket.room);
-          const game = data.get().game;
+          let game;
+          try {
+            game = data.getRoom().game;
+          } catch (e) {
+            return;
+          }
           if (!game.winner) {
             return;
           }
@@ -238,7 +242,10 @@ export default function (io, addr) {
             type: SUCCESSFULLY_REPLAY,
           });
 
-          data.replay();
+          const replay = data.replay();
+          if (!replay) {
+            return;
+          }
           if (!game.replay) { // второй игрок начал игру заново
             const opponentName = data.getOpponentName(socket.id);
             const X_O = assignXO(opponentName, socket.username);
@@ -258,6 +265,7 @@ export default function (io, addr) {
           } else {
             return;
           }
+
           data.setRoomId(socket.room);
           if (data.removeRoom(socket.id)) {
             socket.emit('action', {

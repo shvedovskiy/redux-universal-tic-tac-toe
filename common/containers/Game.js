@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import Info from '../components/Info';
+import GamePage from '../components/GamePage';
 import Board from '../components/Board';
 import Modal from '../components/Modal';
 import EndOfGame from '../components/EndOfGame';
@@ -133,7 +133,7 @@ class Game extends React.PureComponent {
 
   render() {
     return (
-      <Info
+      <GamePage
         opponent={this.props.opponent}
         players={this.props.players}
         xIsNext={this.props.xIsNext}
@@ -159,7 +159,7 @@ class Game extends React.PureComponent {
           sound={this.state.sound}
           muteIsActive={this.props.muteIsActive}
         />
-      </Info>
+      </GamePage>
     );
   }
 }

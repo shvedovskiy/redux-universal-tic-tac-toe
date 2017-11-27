@@ -43,6 +43,7 @@
   ],
   "homepage": "https://github.com/shvedovskiy/redux-universal-tic-tac-toe#readme",
   "dependencies": {
+    "babel-runtime": "^6.26.0",
     "classnames": "^2.2.5",
     "cross-env": "^5.0.5",
     "ejs": "^2.5.7",
@@ -70,6 +71,7 @@
     "babel-eslint": "^8.0.2",
     "babel-loader": "^7.1.1",
     "babel-plugin-transform-builtin-extend": "^1.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.24.1",
