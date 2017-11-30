@@ -22,13 +22,15 @@ class Login extends React.Component {
 
   render() {
     return (
-      this.props.isLogged
-        ? <Redirect push to="/game" />
-        : <LoginPage
-          handleSetUsername={this.props.handleSetUsername}
-          username={this.props.username}
-          error={this.props.error}
-        />
+      this.props.isLogged ?
+        <Redirect push to="/game" />
+        : (
+          <LoginPage
+            handleSetUsername={this.props.handleSetUsername}
+            username={this.props.username}
+            error={this.props.error}
+          />
+        )
     );
   }
 }

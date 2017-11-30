@@ -19,13 +19,11 @@ export default class Waiting extends React.PureComponent {
           <h1>Waiting for available game...</h1>
         </div>
         {
-          this.props.message
-            ? (
-              <div className="invite-link-container">
-                <span>Invitation link:</span> <span className="invite-link">{this.props.message}</span>
-              </div>
-            )
-            : <div className="loader" />
+          this.props.message ? (
+            <div className="invite-link-container">
+              <span>Invitation link:</span> <span className="invite-link">{this.props.message}</span>
+            </div>
+          ) : <div className="loader" />
         }
       </div>
     );

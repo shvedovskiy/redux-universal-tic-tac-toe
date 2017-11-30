@@ -6,29 +6,15 @@ import PropTypes from 'prop-types';
 export default class Modal extends React.PureComponent {
   static propTypes = {
     children: PropTypes.element.isRequired,
-    // status: PropTypes.bool.isRequired,
   };
-
-  // state = {
-  //   status: false,
-  // };
 
   componentWillMount() {
     this.root = document.createElement('div');
     document.body.appendChild(this.root);
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   this.setState({
-  //     status: nextProps.status,
-  //   });
-  // }
-
   componentWillUnmount() {
     document.body.removeChild(this.root);
-    // this.setState({
-    //   status: false,
-    // });
   }
 
   render() {
