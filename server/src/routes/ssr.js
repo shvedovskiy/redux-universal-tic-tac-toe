@@ -8,15 +8,21 @@ import rootReducer from '../../../common/reducers/index';
 
 import App from '../../../common/containers/App';
 import data from '../data';
-import {
-  ADD_OPPONENT,
-  REQUEST_ERROR,
-} from '../../../common/constants/userActionTypes';
 
 
 const router = express.Router();
 router.get('/', (req, res) => {
-  const store = createStore(rootReducer);
+  let persistedStore = {
+    user: {
+      username: null,
+      opponent: null,
+      isLogged: false,
+      isReady: false,
+      invitedId: null,
+      error: null,
+      message: null,
+    },
+  };
 
   if (req.query.invite) {
     const invitedId = req.query.invite;
@@ -28,22 +34,27 @@ router.get('/', (req, res) => {
       opponentName = data.getOpponentName(invitedId);
     } catch (e) {
       err = true;
-      store.dispatch({
-        type: REQUEST_ERROR,
-        error: 'Unknown invite token',
-      });
+      persistedStore = {
+        user: {
+          ...persistedStore.user,
+          error: 'Unknown invite token',
+        },
+      };
     }
 
     if (!err) {
-      store.dispatch({
-        type: ADD_OPPONENT,
-        opponent: opponentName,
-        invitedId,
-      });
+      persistedStore = {
+        user: {
+          ...persistedStore.user,
+          opponent: opponentName,
+          invitedId,
+        },
+      };
     }
   }
 
   const context = {};
+  const store = createStore(rootReducer, persistedStore);
   const html = ReactDOMServer.renderToString(
     <Provider store={store}>
       <StaticRouter

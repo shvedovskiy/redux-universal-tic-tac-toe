@@ -1,8 +1,6 @@
 import {
-  ADD_OPPONENT,
   ERROR_LOGIN,
   INVITED_USER_ADDED,
-  REQUEST_ERROR,
   SUCCESSFULLY_LOGOUT,
   USER_ADDED,
   USER_LEFT,
@@ -21,19 +19,6 @@ const initialState = {
 
 const user = (state = initialState, action) => {
   switch (action.type) {
-    case REQUEST_ERROR: {
-      return {
-        ...state,
-        error: action.error,
-      };
-    }
-    case ADD_OPPONENT: {
-      return {
-        ...state,
-        opponent: action.opponent,
-        invitedId: action.invitedId,
-      };
-    }
     case USER_ADDED: {
       // Вошли в игру первыми:
       return {
