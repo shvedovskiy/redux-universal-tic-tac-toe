@@ -1,63 +1,63 @@
-.login {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  .form {
-    display: inline-flex;
-    flex-direction: column;
-    max-width: 450px;
-    width: 50%;
-    text-align: center;
-
-    @media screen and (max-width: 650px) {
-      width: 85%;
-    }
-  }
-
-  .form-title {
-    font-size: 200%;
-
-    @media screen and (max-width: 400px) {
-      font-size: 150%;
-    }
-  }
-
-  .username-field {
-    @extend .input;
-
-    width: auto;
-    margin-top: 30px;
-    padding-bottom: 5px;
-    font-size: 300%;
-    font-weight: 100;
-    font-style: italic;
-    letter-spacing: 2px;
-    text-align: center;
-    background-color: transparent;
-    border-bottom: 2px solid #fff;
-
-    @media screen and (max-width: 400px) {
-      font-size: 200%;
-    }
-  }
-
-  .form-title, .username-field {
-    color: #fff;
-  }
-
-  .login-errors {
-    display: inline-block;
-    margin-top: 80px;
-    padding: 20px;
-    width: 100%;
-    text-align: center;
-    background-color: #ff291f;
-  }
-
-  .login-error {
-    color: #fff;
-    font-weight: 300;
-  }
-}
+//.login {
+//  display: flex;
+//  flex-direction: column;
+//  align-items: center;
+//  justify-content: center;
+//
+//  .form {
+//    display: inline-flex;
+//    flex-direction: column;
+//    max-width: 450px;
+//    width: 50%;
+//    text-align: center;
+//
+//    @media screen and (max-width: 650px) {
+//      width: 85%;
+//    }
+//  }
+//
+//  .form-title {
+//    font-size: 200%;
+//
+//    @media screen and (max-width: 400px) {
+//      font-size: 150%;
+//    }
+//  }
+//
+//  .username-field {
+//    @extend .input;
+//
+//    width: auto;
+//    margin-top: 30px;
+//    padding-bottom: 5px;
+//    font-size: 300%;
+//    font-weight: 100;
+//    font-style: italic;
+//    letter-spacing: 2px;
+//    text-align: center;
+//    background-color: transparent;
+//    border-bottom: 2px solid #fff;
+//
+//    @media screen and (max-width: 400px) {
+//      font-size: 200%;
+//    }
+//  }
+//
+//  .form-title, .username-field {
+//    color: #fff;
+//  }
+//
+//  .login-errors {
+//    display: inline-block;
+//    margin-top: 80px;
+//    padding: 20px;
+//    width: 100%;
+//    text-align: center;
+//    background-color: #ff291f;
+//  }
+//
+//  .login-error {
+//    color: #fff;
+//    font-weight: 300;
+//  }
+//}

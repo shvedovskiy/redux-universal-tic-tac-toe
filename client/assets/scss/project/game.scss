@@ -1,94 +1,94 @@
-.game {
-  flex-grow: 5;
-  flex-basis: 250px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  padding: 20px;
-
-  @import 'players';
-  @import 'info';
-
-  .game-board {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-template:
-      'left top' 'top' 'right top'
-      'left center' 'center' 'right center'
-      'left bottom' 'bottom' 'right bottom';
-    width: 600px;
-    height: 600px;
-
-    @media screen and (max-width: 950px), (max-height: 810px) {
-      width: 450px;
-      height: 450px;
-
-      .x:before, .x:after {
-        top: 8px;
-        left: 65px;
-        width: 14px;
-        height: 130px;
-        border-radius: 4px;
-      }
-
-      .o {
-        top: 24px;
-        left: 24px;
-        border-width: 13px;
-      }
-    }
-
-    @media screen and (max-width: 500px) {
-      width: 300px;
-      height: 300px;
-
-      .x:before, .x:after {
-        top: 3px;
-        left: 43px;
-        width: 10px;
-        height: 90px;
-        border-radius: 3px;
-      }
-
-      .o {
-        top: 15px;
-        left: 15px;
-        border-width: 10px;
-      }
-    }
-
-    .square {
-      padding: 0;
-
-      &.top {
-        border-bottom: 3px solid #fff;
-      }
-
-      &.left {
-        border-right: 3px solid #fff;
-      }
-
-      &.right {
-        border-left: 3px solid #fff;
-      }
-
-      &.bottom {
-        border-top: 3px solid #fff;
-      }
-
-      .square-button-wrapper {
-        width: 100%;
-        height: 100%;
-      }
-
-      .square-button {
-        margin: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-      }
-    }
-  }
-}
+//.game {
+//  flex-grow: 5;
+//  flex-basis: 250px;
+//  display: flex;
+//  flex-direction: column;
+//  align-items: center;
+//  justify-content: space-around;
+//  padding: 20px;
+//
+//  @import 'players';
+//  @import 'info';
+//
+//  .game-board {
+//    display: grid;
+//    grid-template-columns: repeat(3, 1fr);
+//    grid-template-rows: repeat(3, 1fr);
+//    grid-template:
+//      'left top' 'top' 'right top'
+//      'left center' 'center' 'right center'
+//      'left bottom' 'bottom' 'right bottom';
+//    width: 600px;
+//    height: 600px;
+//
+//    @media screen and (max-width: 950px), (max-height: 810px) {
+//      width: 450px;
+//      height: 450px;
+//
+//      .x:before, .x:after {
+//        top: 8px;
+//        left: 65px;
+//        width: 14px;
+//        height: 130px;
+//        border-radius: 4px;
+//      }
+//
+//      .o {
+//        top: 24px;
+//        left: 24px;
+//        border-width: 13px;
+//      }
+//    }
+//
+//    @media screen and (max-width: 500px) {
+//      width: 300px;
+//      height: 300px;
+//
+//      .x:before, .x:after {
+//        top: 3px;
+//        left: 43px;
+//        width: 10px;
+//        height: 90px;
+//        border-radius: 3px;
+//      }
+//
+//      .o {
+//        top: 15px;
+//        left: 15px;
+//        border-width: 10px;
+//      }
+//    }
+//
+//    .square {
+//      padding: 0;
+//
+//      &.top {
+//        border-bottom: 3px solid #fff;
+//      }
+//
+//      &.left {
+//        border-right: 3px solid #fff;
+//      }
+//
+//      &.right {
+//        border-left: 3px solid #fff;
+//      }
+//
+//      &.bottom {
+//        border-top: 3px solid #fff;
+//      }
+//
+//      .square-button-wrapper {
+//        width: 100%;
+//        height: 100%;
+//      }
+//
+//      .square-button {
+//        margin: 0;
+//        width: 100%;
+//        height: 100%;
+//        opacity: 0;
+//      }
+//    }
+//  }
+//}

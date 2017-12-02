@@ -1,0 +1,18 @@
+@import '../../styles/globals/button';
+
+.message-content {
+  font-size: 110%;
+}
+
+.message-buttons {
+  margin-top: 25px;
+  font-size: 140%;
+
+  .btn {
+    @extend .btn;
+  }
+
+  .inverted-btn {
+    @extend .inverted-btn;
+  }
+}

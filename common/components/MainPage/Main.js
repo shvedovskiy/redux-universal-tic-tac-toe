@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import Game from '../containers/Game';
-import Chat from '../containers/Chat';
-import Waiting from './Waiting';
+import CSSModules from 'react-css-modules';
+import Game from '../../containers/Game/Game';
+import Chat from '../../containers/Chat/Chat';
+import Waiting from '../Waiting/Waiting';
+import styles from './MainPage.scss';
 
 
 class Main extends React.Component {
@@ -22,13 +23,13 @@ class Main extends React.Component {
       !this.props.isReady
         ? <Waiting message={this.props.message} />
         : (
-          <div className={classNames('page', 'main')}>
+          <div styleName="main">
             <Game />
-            <Chat />
+            <Chat styles={styles} />
           </div>
         )
     );
   }
 }
 
-export default Main;
+export default CSSModules(Main, styles);

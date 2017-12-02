@@ -1,0 +1,21 @@
+@import '../../styles/globals/page';
+@import '../../styles/globals/players';
+
+
+.main {
+  @extend .page;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @media screen and (max-width: 755px) {
+    height: auto;
+
+    .chat {
+      width: 100%;
+      height: 400px;
+      margin-top: 25px;
+      flex-grow: 1;
+    }
+  }
+}

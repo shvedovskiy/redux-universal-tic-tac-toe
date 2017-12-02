@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Board from './Board';
+import CSSModules from 'react-css-modules';
+import styles from './GamePage.scss';
 
 
-export default class GamePage extends React.Component {
+class GamePage extends React.Component {
   static propTypes = {
     opponent: PropTypes.string.isRequired,
     xIsNext: PropTypes.bool,
@@ -29,23 +30,23 @@ export default class GamePage extends React.Component {
     } = this.props;
 
     return (
-      <div className="game">
-        <div className="players">
-          Move: <span className={classNames('player', { next: !winner && xIsNext })}>
-            {opponent === X ? X : 'You'} (<span className={classNames('small', 'x')} />)
+      <div styleName="game">
+        <div styleName="players">
+          Move: <span styleName={classNames('player', { next: !winner && xIsNext })}>
+            {opponent === X ? X : 'You'} (<span styleName={classNames('small', 'x')} />)
           </span>
-          &nbsp;&mdash; <span className={classNames('player', { next: !winner && !xIsNext })}>
-            {opponent === O ? O : 'You'} (<span className={classNames('small', 'o')} />)
+          &nbsp;&mdash; <span styleName={classNames('player', { next: !winner && !xIsNext })}>
+            {opponent === O ? O : 'You'} (<span styleName={classNames('small', 'o')} />)
           </span>
         </div>
 
         {children}
 
-        <div className="info">
+        <div styleName="info">
           X: {X} - O: {O}
-          <ul className="info messages">
+          <ul styleName="info messages">
             {
-              messages.map((message, i) => <li className="info-message" key={i}>{message}</li>)
+              messages.map((message, i) => <li styleName="info-message" key={i}>{message}</li>)
             }
           </ul>
         </div>
@@ -53,3 +54,5 @@ export default class GamePage extends React.Component {
     );
   }
 }
+
+export default CSSModules(GamePage, styles, { allowMultiple: true });

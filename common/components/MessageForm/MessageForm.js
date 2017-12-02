@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CSSModules from 'react-css-modules';
+import styles from './MessageForm.scss';
 
 
-export default class MessageForm extends React.PureComponent {
+class MessageForm extends React.PureComponent {
   static TYPING_TIMER_LENGTH = 600;
   static defaultProps = {
     connected: false,
@@ -49,9 +51,9 @@ export default class MessageForm extends React.PureComponent {
 
   render() {
     return (
-      <div className="message-field-container">
+      <div styleName="message-form">
         <input
-          className="message-field"
+          styleName="message-input"
           placeholder="Type here..."
           defaultValue=""
           ref={(node) => { this.messageInput = node; }}
@@ -62,3 +64,5 @@ export default class MessageForm extends React.PureComponent {
     );
   }
 }
+
+export default CSSModules(MessageForm, styles, { allowMultiple: true });

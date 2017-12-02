@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
-import Login from './Login';
-import Main from '../components/Main';
-import PrivateRoute from '../util/PrivateRoute';
-import ThemeSwitcher from '../components/ThemeSwitcher';
-import MuteSwitcher from '../components/MuteSwitcher';
-import { toggleMute } from '../actions';
+import CSSModules from 'react-css-modules';
+import Login from '../Login/Login';
+import Main from '../../components/MainPage/Main';
+import PrivateRoute from '../../util/PrivateRoute';
+import Controls from '../../components/Controls/Controls';
+import { toggleMute } from '../../actions/index';
+import styles from './App.scss';
 
 
 class App extends React.Component {
@@ -26,11 +27,8 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="main-wrapper">
-        <div className="controls">
-          <ThemeSwitcher />
-          <MuteSwitcher onToggleMute={this.props.toggleMute} />
-        </div>
+      <div styleName="main-wrapper">
+        <Controls onToggleMute={this.props.toggleMute} />
         <Switch>
           <Route
             exact
@@ -76,4 +74,6 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(CSSModules(App, styles)),
+);

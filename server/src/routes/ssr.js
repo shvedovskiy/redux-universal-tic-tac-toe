@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router';
 import rootReducer from '../../../common/reducers/index';
 
-import App from '../../../common/containers/App';
+import App from '../../../common/containers/App/App';
 import data from '../data';
 import {
   ADD_OPPONENT,

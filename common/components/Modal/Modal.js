@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import CSSModules from 'react-css-modules';
+import styles from './Modal.scss';
 
 
-export default class Modal extends React.PureComponent {
+class Modal extends React.PureComponent {
   static propTypes = {
     children: PropTypes.element.isRequired,
   };
@@ -19,8 +21,8 @@ export default class Modal extends React.PureComponent {
 
   render() {
     return ReactDOM.createPortal(
-      <div className="modal">
-        <div className="modal-content">
+      <div styleName="modal">
+        <div styleName="modal-content">
           {this.props.children}
         </div>
       </div>,
@@ -28,3 +30,5 @@ export default class Modal extends React.PureComponent {
     );
   }
 }
+
+export default CSSModules(Modal, styles);

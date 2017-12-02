@@ -2,9 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import CSSModules from 'react-css-modules';
+import styles from './MessageList.scss';
 
 
-export default class MessageList extends React.PureComponent {
+class MessageList extends React.PureComponent {
   static defaultProps = {
     messages: [],
   };
@@ -33,22 +35,22 @@ export default class MessageList extends React.PureComponent {
     const list = this.props.messages.map((message, i) => {
       if (!message.username && message.service) {
         return (
-          <li className={classNames('log', 'message')} key={i}>
-            <span className={classNames('log', 'message-body')}>{message.text}</span>
+          <li styleName={classNames('log', 'message')} key={i}>
+            <span styleName={classNames('log', 'message-body')}>{message.text}</span>
           </li>
         );
       }
       return (
-        <li className="message" key={i}>
-          <span className="username">{message.username}</span>
-          <span className="message-body">{message.text}</span>
+        <li styleName="message" key={i}>
+          <span styleName="username">{message.username}</span>
+          <span styleName="message-body">{message.text}</span>
         </li>
       );
     });
 
     return (
       <ul
-        className="messages"
+        styleName="messages-list"
         ref={(node) => {
           this.messagesContainer = node;
         }}
@@ -56,8 +58,8 @@ export default class MessageList extends React.PureComponent {
         {list.length
           ? list
           : (
-            <li className={classNames('log', 'message')}>
-              <span className={classNames('log', 'message-body')}>Here you can chat while playing</span>
+            <li styleName={classNames('log', 'message')}>
+              <span styleName={classNames('log', 'message-body')}>Here you can chat while playing</span>
             </li>
           )
         }
@@ -65,3 +67,5 @@ export default class MessageList extends React.PureComponent {
     );
   }
 }
+
+export default CSSModules(MessageList, styles, { allowMultiple: true });

@@ -6,8 +6,9 @@ import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 // import { AppContainer } from 'react-hot-loader';
 import configureStore from '../common/store/configureStore';
-import App from '../common/containers/App';
+import App from '../common/containers/App/App';
 import './assets/images/favicons';
+import './index.scss';
 
 const history = createHistory();
 
@@ -44,7 +45,7 @@ render(App);
 if (module.hot) {
   module.hot.accept('./app', () => {
     // eslint-disable-next-line
-    const nextApp = require('../common/containers/App').default;
+    const nextApp = require('../common/containers/App/App').default;
     render(nextApp);
   });
 }

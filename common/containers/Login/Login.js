@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import LoginPage from '../components/LoginPage';
-import * as actions from '../actions/index';
+import LoginPage from '../../components/LoginPage/LoginPage';
+import * as actions from '../../actions/index';
 
 
 class Login extends React.Component {

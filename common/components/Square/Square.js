@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import CSSModules from 'react-css-modules';
+import styles from './Square.scss';
 
 
 const Square = ({ disabled, onClick, value, shaded }) => (
-  <div className="square-button-wrapper">
-    <div className={classNames(
+  <div styleName="square-button-wrapper">
+    <div styleName={classNames(
       'big',
       {
         x: value === 'X',
@@ -15,7 +17,7 @@ const Square = ({ disabled, onClick, value, shaded }) => (
     )}
     >
       <button
-        className="square-button"
+        styleName="square-button"
         onClick={onClick}
         disabled={disabled}
       >
@@ -32,4 +34,4 @@ Square.propTypes = {
   shaded: PropTypes.bool.isRequired,
 };
 
-export default Square;
+export default CSSModules(Square, styles, { allowMultiple: true });

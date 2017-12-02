@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import CSSStyles from 'react-css-modules';
+import styles from './LoginPage.scss';
 
 
-export default class LoginPage extends React.PureComponent {
+class LoginPage extends React.PureComponent {
   static propTypes = {
     username: PropTypes.string,
     error: PropTypes.string,
@@ -36,9 +37,9 @@ export default class LoginPage extends React.PureComponent {
   render() {
     if (!this.props.username && this.props.error) {
       return (
-        <div className={classNames('page', 'login')}>
-          <ul className="login-errors">
-            <li><span className="login-error">
+        <div styleName="login-page">
+          <ul styleName="login-errors">
+            <li><span styleName="login-error">
               {this.props.error}
             </span></li>
           </ul>
@@ -48,14 +49,14 @@ export default class LoginPage extends React.PureComponent {
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
-        className={classNames('page', 'login')}
+        styleName="login-page"
         onClick={this.focusNameInput}
       >
-        <div className="form">
-          <h3 className="form-title">What&#39;s your nickname?</h3>
+        <div styleName="login-form">
+          <h3 styleName="login-form-title">What&#39;s your nickname?</h3>
           <input
             type="text"
-            className="username-field"
+            styleName="username-field"
             defaultValue=""
             ref={(node) => {
               this.nameInput = node;
@@ -65,8 +66,8 @@ export default class LoginPage extends React.PureComponent {
         </div>
         {
           this.props.error &&
-          <ul className="login-errors">
-            <li><span className="login-error">
+          <ul styleName="login-errors">
+            <li><span styleName="login-error">
               {this.props.error}
             </span></li>
           </ul>
@@ -75,3 +76,5 @@ export default class LoginPage extends React.PureComponent {
     );
   }
 }
+
+export default CSSStyles(LoginPage, styles, { allowMultiple: true });

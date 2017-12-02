@@ -4,17 +4,17 @@
   justify-content: center;
 
   @import 'game';
-  @import 'chat';
+  //@import 'chat';
 
 
   @media screen and (max-width: 755px) {
     height: auto;
 
-    .chat {
-      width: 100%;
-      height: 400px;
-      margin-top: 25px;
-      flex-grow: 1;
-    }
+    //.chat {
+    //  width: 100%;
+    //  height: 400px;
+    //  margin-top: 25px;
+    //  flex-grow: 1;
+    //}
   }
 }

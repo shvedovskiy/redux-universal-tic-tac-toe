@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CSSModules from 'react-css-modules';
 
 
-export default class MuteSwitcher extends React.PureComponent {
+class MuteSwitcher extends React.PureComponent {
   static propTypes = {
     onToggleMute: PropTypes.func.isRequired,
   };
@@ -22,9 +23,9 @@ export default class MuteSwitcher extends React.PureComponent {
 
   render() {
     return (
-      <div className="mute">
+      <div styleName="mute">
         <button
-          className="mute-switcher"
+          styleName="mute-switcher"
           aria-pressed={this.state.active.toString()}
           onClick={this.toggle}
         >
@@ -48,3 +49,6 @@ export default class MuteSwitcher extends React.PureComponent {
     );
   }
 }
+
+
+export default CSSModules(MuteSwitcher, {});

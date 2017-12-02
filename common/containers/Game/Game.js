@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import GamePage from '../components/GamePage';
-import Board from '../components/Board';
-import Modal from '../components/Modal';
-import EndOfGame from '../components/EndOfGame';
-import * as actions from '../actions';
-import moveHigh from '../../client/assets/sounds/note-high.wav';
-import moveLow from '../../client/assets/sounds/note-low.wav';
-import gameOver from '../../client/assets/sounds/game-over.wav';
-import gameOverTie from '../../client/assets/sounds/game-over-tie.wav';
+import CSSModules from 'react-css-modules';
+import GamePage from '../../components/GamePage/GamePage';
+import Board from '../../components/Board/Board';
+import Modal from '../../components/Modal/Modal';
+import EndOfGame from '../../components/EndOfGame/EndOfGame';
+import * as actions from '../../actions/index';
+import styles from './Game.scss';
+import moveHigh from '../../../client/assets/sounds/note-high.wav';
+import moveLow from '../../../client/assets/sounds/note-low.wav';
+import gameOver from '../../../client/assets/sounds/game-over.wav';
+import gameOverTie from '../../../client/assets/sounds/game-over-tie.wav';
 
 
 class Game extends React.PureComponent {
@@ -142,12 +144,12 @@ class Game extends React.PureComponent {
       >
         {
           !this.props.opponent &&
-            <Modal>
-              <div className="message-content">
+            <Modal styles={styles}>
+              <div styleName="message-content">
                 {this.props.modalMessage}
               </div>
-              <div className="message-buttons">
-                <button className={classNames('btn', 'inverted-btn')} onClick={this.props.logout}>Logout</button>
+              <div styleName="message-buttons">
+                <button styleName={classNames('btn', 'inverted-btn')} onClick={this.props.logout}>Logout</button>
               </div>
             </Modal>
         }
@@ -192,4 +194,6 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Game));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(CSSModules(Game, styles))
+);

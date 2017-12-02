@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import MessageList from '../components/MessageList';
-import MessageForm from '../components/MessageForm';
-import * as actions from '../actions/index';
+import CSSModules from 'react-css-modules';
+import MessageList from '../../components/MessageList/MessageList';
+import MessageForm from '../../components/MessageForm/MessageForm';
+import * as actions from '../../actions/index';
+import styles from './Chat.scss';
 
 
 const Chat = props => (
-  <div className="chat">
-    <MessageList messages={props.messages} />
+  <div styleName="chat">
+    <MessageList styles={styles} messages={props.messages} />
     <MessageForm
+      styles={styles}
       onSendMessage={props.onSendMessage}
       onStartTyping={props.onStartTyping}
       onStopTyping={props.onStopTyping}
@@ -48,4 +51,6 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Chat);
+export default connect(
+  mapStateToProps, mapDispatchToProps,
+)(CSSModules(Chat, styles, { allowMultiple: true }));

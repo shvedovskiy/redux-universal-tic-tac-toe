@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Square from './Square';
+import CSSModules from 'react-css-modules';
+import Square from '../Square/Square';
+import styles from './Board.scss';
 
 
-export default class Board extends React.PureComponent {
+class Board extends React.PureComponent {
   static propTypes = {
     disabled: PropTypes.bool.isRequired,
     move: PropTypes.func.isRequired,
@@ -34,35 +36,37 @@ export default class Board extends React.PureComponent {
       this.props.sound.play();
     }
     return (
-      <div className="game-board">
-        <div className={classNames('square', 'top', 'left')}>
+      <div styleName="game-board">
+        <div styleName={classNames('square', 'top', 'left')}>
           {this.renderSquare(0)}
         </div>
-        <div className={classNames('square', 'top')}>
+        <div styleName={classNames('square', 'top')}>
           {this.renderSquare(1)}
         </div>
-        <div className={classNames('square', 'top', 'right')}>
+        <div styleName={classNames('square', 'top', 'right')}>
           {this.renderSquare(2)}
         </div>
-        <div className={classNames('square', 'left')}>
+        <div styleName={classNames('square', 'left')}>
           {this.renderSquare(3)}
         </div>
-        <div className="square">
+        <div styleName="square">
           {this.renderSquare(4)}
         </div>
-        <div className={classNames('square', 'right')}>
+        <div styleName={classNames('square', 'right')}>
           {this.renderSquare(5)}
         </div>
-        <div className={classNames('square', 'bottom', 'left')}>
+        <div styleName={classNames('square', 'bottom', 'left')}>
           {this.renderSquare(6)}
         </div>
-        <div className={classNames('square', 'bottom')}>
+        <div styleName={classNames('square', 'bottom')}>
           {this.renderSquare(7)}
         </div>
-        <div className={classNames('square', 'bottom', 'right')}>
+        <div styleName={classNames('square', 'bottom', 'right')}>
           {this.renderSquare(8)}
         </div>
       </div>
     );
   }
 }
+
+export default CSSModules(Board, styles, { allowMultiple: true });
