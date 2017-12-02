@@ -38,7 +38,7 @@ module.exports = {
         test: /\.scss$/,
         use: [
           'style-loader?sourceMap',
-          'css-loader?sourceMap&importLoaders=3',
+          'css-loader?modules&localIdentName=[name]__[local]__[hash:base64:5]&sourceMap&importLoaders=3',
           {
             loader: 'postcss-loader',
             options: {

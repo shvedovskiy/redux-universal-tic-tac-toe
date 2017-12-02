@@ -29,6 +29,26 @@ module.exports = {
         },
       },
       {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader?modules&localIdentName=[name]__[local]__[hash:base64:5]&sourceMap&importLoaders=3',
+            {
+              loader: 'postcss-loader',
+              options: {
+                config: {
+                  path: 'config/postcss.config.js',
+                },
+                sourceMap: true,
+              },
+            },
+            'resolve-url-loader',
+            'sass-loader?sourceMap',
+          ],
+        }),
+      },
+      {
         test: /\.(png|jpg|gif|svg)$/,
         use: [
           {
