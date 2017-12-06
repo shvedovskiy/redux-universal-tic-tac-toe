@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CSSModules from 'react-css-modules';
-import Square from '../Square/Square';
+import Square from './Square';
 import styles from './Board.scss';
 
 
@@ -27,6 +27,7 @@ class Board extends React.PureComponent {
         disabled={this.props.disabled}
         value={this.props.squares[i]}
         onClick={() => this.props.move(i)}
+        styles={styles}
       />
     );
   }

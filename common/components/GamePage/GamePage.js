@@ -44,7 +44,7 @@ class GamePage extends React.Component {
 
         <div styleName="info">
           X: {X} - O: {O}
-          <ul styleName="info messages">
+          <ul styleName={classNames('info', 'messages')}>
             {
               messages.map((message, i) => <li styleName="info-message" key={i}>{message}</li>)
             }

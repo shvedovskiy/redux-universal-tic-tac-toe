@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CSSModules from 'react-css-modules';
-import styles from './Square.scss';
 
 
 const Square = ({ disabled, onClick, value, shaded }) => (
@@ -34,4 +33,4 @@ Square.propTypes = {
   shaded: PropTypes.bool.isRequired,
 };
 
-export default CSSModules(Square, styles, { allowMultiple: true });
+export default CSSModules(Square, {}, { allowMultiple: true });

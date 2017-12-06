@@ -50,7 +50,7 @@ class MessageList extends React.PureComponent {
 
     return (
       <ul
-        styleName="messages-list"
+        styleName="message-list"
         ref={(node) => {
           this.messagesContainer = node;
         }}

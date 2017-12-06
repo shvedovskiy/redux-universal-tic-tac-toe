@@ -53,4 +53,4 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(
   mapStateToProps, mapDispatchToProps,
-)(CSSModules(Chat, styles, { allowMultiple: true }));
+)(CSSModules(Chat, styles));

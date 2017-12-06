@@ -1,5 +1,6 @@
 @import '../../styles/globals/page';
 @import '../../styles/globals/players';
+@import '../../containers/Chat/Chat';
 
 
 .main {
@@ -7,6 +8,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
+  .chat {
+    @extend .chat;
+  }
 
   @media screen and (max-width: 755px) {
     height: auto;
