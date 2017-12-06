@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import CSSModules from 'react-css-modules';
+
 import Login from '../Login/Login';
-import Main from '../../components/MainPage/Main';
+import Main from '../../components/MainPage/MainPage';
 import PrivateRoute from '../../util/PrivateRoute';
 import Controls from '../../components/Controls/Controls';
 import { toggleMute } from '../../actions/index';

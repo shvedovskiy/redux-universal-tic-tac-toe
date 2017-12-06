@@ -23,7 +23,7 @@ class MuteSwitcher extends React.PureComponent {
 
   render() {
     return (
-      <div styleName="mute">
+      <div styleName="mute-control">
         <button
           styleName="mute-switcher"
           aria-pressed={this.state.active.toString()}

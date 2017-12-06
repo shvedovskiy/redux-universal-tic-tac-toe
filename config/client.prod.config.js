@@ -9,7 +9,7 @@ module.exports = {
   devtool: 'source-map',
   entry: [
     './index.js',
-    './assets/scss/layout.scss',
+    './index.scss',
   ],
   output: {
     path: path.join(__dirname, '../server/public'),

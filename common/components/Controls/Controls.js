@@ -7,7 +7,7 @@ import styles from './Controls.scss';
 
 
 const Controls = ({ onToggleMute }) => (
-  <div styleName="controls">
+  <div styleName="controls-panel">
     <ThemeSwitcher styles={styles} />
     <MuteSwitcher styles={styles} onToggleMute={onToggleMute} />
   </div>

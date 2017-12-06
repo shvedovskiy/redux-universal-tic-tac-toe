@@ -28,7 +28,7 @@ class ThemeSwitcher extends React.PureComponent {
 
   render() {
     return (
-      <div styleName="theme">
+      <div styleName="theme-control">
         <button
           styleName="theme-switcher"
           aria-pressed={this.state.active.toString()}

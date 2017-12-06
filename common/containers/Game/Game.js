@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import CSSModules from 'react-css-modules';
-import GamePage from '../../components/GamePage/GamePage';
+
+import GameView from '../../components/GameView/GameView';
 import Board from '../../components/Board/Board';
 import Modal from '../../components/Modal/Modal';
 import * as actions from '../../actions/index';
 import styles from '../../components/Modal/Modal.scss';
+
 import moveHigh from '../../../client/assets/sounds/note-high.wav';
 import moveLow from '../../../client/assets/sounds/note-low.wav';
 import gameOver from '../../../client/assets/sounds/game-over.wav';
@@ -131,7 +133,7 @@ class Game extends React.PureComponent {
 
   render() {
     return (
-      <GamePage
+      <GameView
         styles={this.props.customStyles}
         opponent={this.props.opponent}
         players={this.props.players}
@@ -160,7 +162,7 @@ class Game extends React.PureComponent {
           sound={this.state.sound}
           muteIsActive={this.props.muteIsActive}
         />
-      </GamePage>
+      </GameView>
     );
   }
 }

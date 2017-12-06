@@ -14,16 +14,6 @@ button, audio, video {
   vertical-align: baseline;
 }
 
-body {
-  background-color: #000;
-  line-height: 1;
-}
-
-ol, ul {
-  list-style-type: none;
-  word-wrap: break-word;
-}
-
 html,
 body {
   font-smoothing: antialiased;
@@ -37,7 +27,13 @@ html {
   "Helvetica Light", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
-#app {
+body {
   min-width: 200px;
-  height: 100%;
+  background-color: #000;
+  line-height: 1;
+}
+
+ol, ul {
+  list-style-type: none;
+  word-wrap: break-word;
 }

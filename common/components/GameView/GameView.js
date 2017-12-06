@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CSSModules from 'react-css-modules';
 import EndOfGame from './EndOfGame';
-import styles from './GamePage.scss';
+import styles from './GameView.scss';
 
 
-class GamePage extends React.Component {
+class GameView extends React.Component {
   static propTypes = {
     opponent: PropTypes.string.isRequired,
     xIsNext: PropTypes.bool,
@@ -68,4 +68,4 @@ class GamePage extends React.Component {
   }
 }
 
-export default CSSModules(GamePage, styles, { allowMultiple: true });
+export default CSSModules(GameView, styles, { allowMultiple: true });

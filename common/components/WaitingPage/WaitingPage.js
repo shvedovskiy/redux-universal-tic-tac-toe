@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CSSStyles from 'react-css-modules';
-import styles from './Waiting.scss';
+import styles from './WaitingPage.scss';
 
 
-class Waiting extends React.PureComponent {
+class WaitingPage extends React.PureComponent {
   static propTypes = {
     message: PropTypes.string,
   };
@@ -24,11 +24,11 @@ class Waiting extends React.PureComponent {
             <div styleName="invite-link-container">
               <span>Invitation link:</span> <span styleName="invite-link">{this.props.message}</span>
             </div>
-          ) : <div styleName="loader" />
+          ) : <div styleName="waiting-loader" />
         }
       </div>
     );
   }
 }
 
-export default CSSStyles(Waiting, styles);
+export default CSSStyles(WaitingPage, styles);

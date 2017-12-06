@@ -8,6 +8,7 @@ import createHistory from 'history/createBrowserHistory';
 import configureStore from '../common/store/configureStore';
 import App from '../common/containers/App/App';
 import './assets/images/favicons';
+import './index.scss';
 
 const history = createHistory();
 

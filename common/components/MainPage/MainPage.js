@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import CSSModules from 'react-css-modules';
 import Game from '../../containers/Game/Game';
 import Chat from '../../containers/Chat/Chat';
-import Waiting from '../Waiting/Waiting';
+import WaitingPage from '../WaitingPage/WaitingPage';
 import styles from './MainPage.scss';
 
 
-class Main extends React.Component {
+class MainPage extends React.Component {
   static propTypes = {
     isReady: PropTypes.bool,
     message: PropTypes.string,
@@ -21,7 +21,7 @@ class Main extends React.Component {
   render() {
     return (
       !this.props.isReady
-        ? <Waiting message={this.props.message} />
+        ? <WaitingPage message={this.props.message} />
         : (
           <div styleName="main">
             <Game customStyles={styles} />
@@ -32,4 +32,4 @@ class Main extends React.Component {
   }
 }
 
-export default CSSModules(Main, styles);
+export default CSSModules(MainPage, styles);

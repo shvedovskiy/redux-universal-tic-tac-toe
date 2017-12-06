@@ -1,14 +1,15 @@
 @import '../../styles/globals/switcher';
 
-.controls {
+
+.controls-panel {
   display: flex;
   justify-content: space-between;
   height: 52px;
   padding: 10px 20px;
 }
 
-.theme,
-.mute {
+.theme-control,
+.mute-control {
   width: 32px;
   height: 32px;
 }
