@@ -1,0 +1,16 @@
+@import '../../components/Controls/Controls';
+
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+
+  .controls-panel {
+    @extend .controls-panel;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+}

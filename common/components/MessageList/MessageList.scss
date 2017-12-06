@@ -1,0 +1,32 @@
+@import '../../styles/mixins';
+
+
+.message-list {
+  background-color: #fff;
+  overflow-y: scroll;
+  word-wrap: break-word;
+
+  .message {
+    padding: 8px 20px;
+    @include word-wrap();
+
+    &.log {
+      color: #808080;
+      font-style: italic;
+      text-align: center;
+
+      &.message-body {
+        color: #000;
+      }
+    }
+
+    .username {
+      padding-right: 10px;
+      overflow: hidden;
+      text-align: right;
+      font-weight: 700;
+    }
+
+    .message-body { }
+  }
+}

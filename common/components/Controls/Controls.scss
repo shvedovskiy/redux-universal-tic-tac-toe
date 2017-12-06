@@ -1,0 +1,42 @@
+@import '../../styles/globals/switcher';
+
+
+.controls-panel {
+  display: flex;
+  justify-content: space-between;
+  height: 52px;
+  padding: 10px 20px;
+}
+
+.theme-control,
+.mute-control {
+  width: 32px;
+  height: 32px;
+}
+
+
+.theme-switcher {
+  @extend .switcher;
+  user-select: none;
+
+  .theme-switcher-icon {
+    transition: opacity 0.2s linear;
+    opacity: 0.5;
+  }
+
+  &:hover .theme-switcher-icon {
+    opacity: 1;
+  }
+}
+
+.mute-switcher {
+  @extend .switcher;
+
+  g {
+    transition: fill 0.2s linear;
+  }
+
+  &:hover g {
+    fill: #fff;
+  }
+}

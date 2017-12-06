@@ -1,0 +1,95 @@
+@import '../../styles/globals/players';
+@import '../../styles/globals/button';
+
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .messages {
+    color: #fff;
+    font-size: 150%;
+
+    @media screen and (max-width: 350px) {
+      font-size: 100%;
+    }
+
+    .info-message {
+      color: inherit
+    }
+  }
+}
+
+.players {
+  display: block;
+  text-align: center;
+  color: #fff;
+  font-size: 250%;
+  font-weight: 100;
+  line-height: 1.5;
+
+  @media screen and (max-width: 950px), (max-height: 810px) {
+    font-size: 150%;
+
+    .player {
+      .x:before,
+      .x:after {
+        top: 5px;
+        width: 2px;
+        height: 20px;
+      }
+
+      .o {
+        top: 2px;
+        width: 18px;
+        height: 18px;
+        border-width: 2px;
+      }
+    }
+  }
+
+  .player.next {
+    color: rgba(255, 255, 255, 0.5);
+
+    .o.small {
+      border-color: #808080;
+    }
+
+    .x.small:before, .x.small:after {
+      background-color: #808080;
+    }
+  }
+}
+
+.end-of-game {
+  padding: 10px;
+  text-align: center;
+
+  .end-of-game-message {
+    color: inherit;
+  }
+
+  .end-of-game-buttons {
+    margin-top: 20px;
+  }
+
+  .game-button {
+    @extend .btn;
+    background-color: #fff;
+    border: 3px solid #808080;
+
+    &:first-child {
+      margin-right: 30px;
+    }
+  }
+}

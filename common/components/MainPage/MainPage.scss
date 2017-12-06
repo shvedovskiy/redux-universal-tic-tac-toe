@@ -1,0 +1,37 @@
+@import '../../styles/globals/page';
+@import '../../styles/globals/players';
+@import '../../containers/Chat/Chat';
+@import '../GameView/GameView';
+
+
+.main {
+  @extend .page;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @media screen and (max-width: 755px) {
+    height: auto;
+
+    .chat {
+      width: 100%;
+      height: 400px;
+      margin-top: 25px;
+      flex-grow: 1;
+    }
+  }
+}
+
+.game {
+  @extend .game;
+  flex-basis: 250px;
+  flex-grow: 5;
+}
+
+.chat {
+  @extend .chat;
+  flex-basis: 35%;
+  flex-grow: 0;
+  justify-self: stretch;
+}
+
