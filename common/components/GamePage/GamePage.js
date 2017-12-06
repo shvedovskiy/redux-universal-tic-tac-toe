@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CSSModules from 'react-css-modules';
+import EndOfGame from './EndOfGame';
 import styles from './GamePage.scss';
 
 
@@ -16,6 +17,8 @@ class GamePage extends React.Component {
     messages: PropTypes.array.isRequired,
     winner: PropTypes.bool,
     children: PropTypes.element.isRequired,
+    replay: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -25,8 +28,8 @@ class GamePage extends React.Component {
 
   render() {
     const {
-      players: { X, O }, opponent, xIsNext,
-      winner, children, messages,
+      players: { X, O }, opponent, xIsNext, replay,
+      logout, winner, children, messages,
     } = this.props;
 
     return (
@@ -46,7 +49,17 @@ class GamePage extends React.Component {
           X: {X} - O: {O}
           <ul styleName={classNames('info', 'messages')}>
             {
-              messages.map((message, i) => <li styleName="info-message" key={i}>{message}</li>)
+              messages.map((message, i) => (
+                <li styleName="info-message" key={i}>
+                  {
+                    winner ? (
+                      <EndOfGame replay={replay} logout={logout} styles={styles}>
+                        {message}
+                      </EndOfGame>
+                    ) : message
+                  }
+                </li>
+              ))
             }
           </ul>
         </div>

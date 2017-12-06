@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import CSSModules from 'react-css-modules';
 import styles from './Modal.scss';
@@ -20,13 +19,12 @@ class Modal extends React.PureComponent {
   }
 
   render() {
-    return ReactDOM.createPortal(
+    return (
       <div styleName="modal">
         <div styleName="modal-content">
           {this.props.children}
         </div>
-      </div>,
-      this.root,
+      </div>
     );
   }
 }

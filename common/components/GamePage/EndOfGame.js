@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CSSModules from 'react-css-modules';
-import styles from './EndOfGame.scss';
 
 
 const EndOfGame = ({ children, replay, logout }) => (
@@ -24,4 +23,4 @@ EndOfGame.defaultProps = {
   children: null,
 };
 
-export default CSSModules(EndOfGame, styles);
+export default CSSModules(EndOfGame, {});

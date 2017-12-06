@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import CSSModules from 'react-css-modules';
 import GamePage from '../../components/GamePage/GamePage';
 import Board from '../../components/Board/Board';
 import Modal from '../../components/Modal/Modal';
-import EndOfGame from '../../components/EndOfGame/EndOfGame';
 import * as actions from '../../actions/index';
-import styles from './Game.scss';
+import styles from '../../components/Modal/Modal.scss';
 import moveHigh from '../../../client/assets/sounds/note-high.wav';
 import moveLow from '../../../client/assets/sounds/note-low.wav';
 import gameOver from '../../../client/assets/sounds/game-over.wav';
@@ -18,6 +16,7 @@ import gameOverTie from '../../../client/assets/sounds/game-over-tie.wav';
 
 class Game extends React.PureComponent {
   static propTypes = {
+    customStyles: PropTypes.object,
     lastMoveNumber: PropTypes.number,
     opponent: PropTypes.string,
     modalMessage: PropTypes.string,
@@ -37,6 +36,7 @@ class Game extends React.PureComponent {
   };
 
   static defaultProps = {
+    customStyles: null,
     lastMoveNumber: null,
     modalMessage: null,
     opponent: null,
@@ -61,7 +61,7 @@ class Game extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { players: { X, O }, opponent, replay, logout, isReady, xIsNext } = this.props;
+    const { players: { X, O }, opponent, isReady, xIsNext } = this.props;
     const winner = nextProps.winner;
     let messages = this.state.infoMessages;
     let sound = this.state.sound;
@@ -80,11 +80,7 @@ class Game extends React.PureComponent {
           : `${winner.username} win!`;
         sound = this.sounds[2];
       }
-      messages = [
-        <EndOfGame replay={replay} logout={logout}>
-          {messageText}
-        </EndOfGame>,
-      ];
+      messages = [messageText];
     } else if (!nextProps.isReady) {
       messages = ['Wait for replay...'];
     } else if (nextProps.xIsNext !== xIsNext) {
@@ -136,20 +132,23 @@ class Game extends React.PureComponent {
   render() {
     return (
       <GamePage
+        styles={this.props.customStyles}
         opponent={this.props.opponent}
         players={this.props.players}
         xIsNext={this.props.xIsNext}
         messages={this.state.infoMessages}
         winner={this.props.winner}
+        replay={this.props.replay}
+        logout={this.props.logout}
       >
         {
           !this.props.opponent &&
-            <Modal styles={styles}>
+            <Modal>
               <div styleName="message-content">
                 {this.props.modalMessage}
               </div>
               <div styleName="message-buttons">
-                <button styleName={classNames('btn', 'inverted-btn')} onClick={this.props.logout}>Logout</button>
+                <button styleName="message-button" onClick={this.props.logout}>Logout</button>
               </div>
             </Modal>
         }
@@ -195,5 +194,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(CSSModules(Game, styles))
+  connect(mapStateToProps, mapDispatchToProps)(CSSModules(Game, styles)),
 );

@@ -24,7 +24,7 @@ class Main extends React.Component {
         ? <Waiting message={this.props.message} />
         : (
           <div styleName="main">
-            <Game />
+            <Game customStyles={styles} />
             <Chat styles={styles} />
           </div>
         )

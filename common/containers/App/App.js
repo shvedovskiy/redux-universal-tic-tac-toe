@@ -28,7 +28,7 @@ class App extends React.Component {
   render() {
     return (
       <div styleName="main-wrapper">
-        <Controls onToggleMute={this.props.toggleMute} />
+        <Controls onToggleMute={this.props.toggleMute} styles={styles} />
         <Switch>
           <Route
             exact

@@ -1,6 +1,7 @@
 @import '../../styles/globals/page';
 @import '../../styles/globals/players';
 @import '../../containers/Chat/Chat';
+@import '../GamePage/GamePage';
 
 
 .main {
@@ -8,10 +9,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
-  .chat {
-    @extend .chat;
-  }
 
   @media screen and (max-width: 755px) {
     height: auto;
@@ -24,3 +21,17 @@
     }
   }
 }
+
+.game {
+  @extend .game;
+  flex-basis: 250px;
+  flex-grow: 5;
+}
+
+.chat {
+  @extend .chat;
+  flex-basis: 35%;
+  flex-grow: 0;
+  justify-self: stretch;
+}
+

@@ -11,6 +11,18 @@
   width: 600px;
   height: 600px;
 
+  .x:before {
+    @extend .x:before;
+  }
+
+  .x:after {
+    @extend .x:after;
+  }
+
+  .o {
+    @extend .o;
+  }
+
   @media screen and (max-width: 950px), (max-height: 810px) {
     width: 450px;
     height: 450px;
