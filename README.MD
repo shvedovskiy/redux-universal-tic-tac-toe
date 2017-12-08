@@ -7,7 +7,7 @@
 * Socket.io
 * React-Router (v4)
 * Webpack
-* SASS + PostCSS
+* SASS + CSS Modules + PostCSS
 
 ### Как пользоваться:
 
