@@ -8,8 +8,6 @@ export const NOW = process.env.NOW || '';
 export const NOW_URL = process.env.NOW_URL || '';
 /* eslint-enable prefer-destructuring */
 
-console.log('NOW_URL: ', NOW_URL); // eslint-disable-line no-console
-
 export const address = do {
   if (NODE_ENV === 'production') {
     if (NOW) {
