@@ -84,6 +84,8 @@ module.exports = {
         'SERVER_HOSTNAME': JSON.stringify(process.env.SERVER_HOSTNAME),
         'SERVER_PORT': JSON.stringify(process.env.SERVER_PORT),
         'HTTPS': JSON.stringify(process.env.HTTPS),
+        'NOW': JSON.stringify(process.env.NOW),
+        'NOW_URL': JSON.stringify(process.env.NOW_URL),
       },
     }),
   ],
