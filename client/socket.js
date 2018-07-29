@@ -1,7 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import io from 'socket.io-client';
+import { address } from '../common/config';
 
 
-const socket = io('http://localhost:3000');
+const socket = io(address);
 
 export default socket;

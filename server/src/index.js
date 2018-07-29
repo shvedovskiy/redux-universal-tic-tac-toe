@@ -1,9 +1,16 @@
 /* eslint-disable no-console */
+import path from 'path';
 import express from 'express';
 import Server from 'socket.io';
 import { Server as httpServer } from 'http';
 import ssrRouter from './routes/ssr';
 import connectionHandler from './routes/socketConnection';
+import '../../common/env';
+import {
+  address,
+  STATIC_PATH,
+  PORT,
+} from '../../common/config';
 
 
 function normalizePort(val) {
@@ -17,12 +24,11 @@ const app = express();
 const server = httpServer(app);
 const io = Server(server);
 
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(PORT);
 app.set('port', port);
-
-
 app.set('view engine', 'ejs');
-app.use(express.static('public'));
+app.set('views', path.resolve(__dirname, '..', 'views'));
+app.use(STATIC_PATH, express.static(path.resolve(__dirname, '..', 'public')));
 app.use('/*', ssrRouter);
 app.use((req, res, next) => {
   const err = new Error('Not Found');
@@ -58,11 +64,7 @@ server.on('error', (error) => {
   }
 });
 server.on('listening', () => {
-  const addr = server.address();
-  const bind = typeof addr === 'string'
-    ? `Pipe ${addr}`
-    : `Port ${addr.port}`;
-  console.info(`==> 🌎  Listening on port ${bind}. Open up http://localhost:${addr.port}/ in your browser.`);
+  console.info(`==> 🌎  Listening on port ${port}. Open up ${address} in your browser.`);
 });
 
 io.on('connection', connectionHandler(io, server.address()));
