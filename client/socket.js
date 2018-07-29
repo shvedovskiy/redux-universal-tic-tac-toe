@@ -1,8 +1,8 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import io from 'socket.io-client';
+import socketIOClient from 'socket.io-client';
 import { address } from '../common/config';
 
 
-const socket = io(address);
+console.log('Address: ', address); // eslint-disable-line no-console
+const socket = socketIOClient(address);
 
 export default socket;
