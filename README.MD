@@ -1,5 +1,7 @@
 # Tic Tac Toe Multi Player Game
 
+[![Build Status](https://travis-ci.org/shvedovskiy/redux-universal-tic-tac-toe.svg?branch=master)](https://travis-ci.org/shvedovskiy/redux-universal-tic-tac-toe)
+
 ### Инструменты:
 
 * React (v16)
