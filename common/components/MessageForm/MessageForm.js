@@ -6,16 +6,15 @@ import styles from './MessageForm.scss';
 
 class MessageForm extends React.PureComponent {
   static TYPING_TIMER_LENGTH = 600;
-  static defaultProps = {
-    connected: false,
-    typing: false,
-  };
-
   static propTypes = {
     onSendMessage: PropTypes.func.isRequired,
     onStartTyping: PropTypes.func.isRequired,
     onStopTyping: PropTypes.func.isRequired,
     typing: PropTypes.bool,
+  };
+  static defaultProps = {
+    connected: false,
+    typing: false,
   };
 
   componentDidMount() {

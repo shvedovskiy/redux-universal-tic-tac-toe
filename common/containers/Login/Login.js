@@ -6,34 +6,30 @@ import LoginPage from '../../components/LoginPage/LoginPage';
 import * as actions from '../../actions/index';
 
 
-class Login extends React.Component {
-  static propTypes = {
-    isLogged: PropTypes.bool,
-    username: PropTypes.string,
-    error: PropTypes.string,
-    handleSetUsername: PropTypes.func.isRequired,
-  };
+const Login = props => (
+  props.isLogged ?
+    <Redirect push to="/game" />
+    : (
+      <LoginPage
+        handleSetUsername={props.handleSetUsername}
+        username={props.username}
+        error={props.error}
+      />
+    )
+);
 
-  static defaultProps = {
-    isLogged: false,
-    username: '',
-    error: null,
-  };
+Login.propTypes = {
+  isLogged: PropTypes.bool,
+  username: PropTypes.string,
+  error: PropTypes.string,
+  handleSetUsername: PropTypes.func.isRequired,
+};
 
-  render() {
-    return (
-      this.props.isLogged ?
-        <Redirect push to="/game" />
-        : (
-          <LoginPage
-            handleSetUsername={this.props.handleSetUsername}
-            username={this.props.username}
-            error={this.props.error}
-          />
-        )
-    );
-  }
-}
+Login.defaultProps = {
+  isLogged: false,
+  username: '',
+  error: null,
+};
 
 const mapStateToProps = state => ({
   isLogged: state.user.isLogged,

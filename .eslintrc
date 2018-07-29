@@ -4,7 +4,11 @@
     "react/jsx-filename-extension": [1, {
       "extensions": [".js", ".jsx"]
     }],
-    "react/forbid-prop-types": 0
+    "react/forbid-prop-types": 0,
+    "no-unused-expressions": 0,
+    "babel/no-unused-expressions": 1,
+    "no-invalid-this": 0,
+    "babel/no-invalid-this" : 1
   },
   "env": {
     "es6": true,
@@ -21,6 +25,7 @@
     }
   },
   "plugins": [
-    "react"
+    "react",
+    "babel"
   ]
 }

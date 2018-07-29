@@ -7,10 +7,6 @@ import styles from './MessageList.scss';
 
 
 class MessageList extends React.PureComponent {
-  static defaultProps = {
-    messages: [],
-  };
-
   static propTypes = {
     messages: PropTypes.arrayOf(
       PropTypes.shape({
@@ -19,6 +15,9 @@ class MessageList extends React.PureComponent {
         service: PropTypes.bool,
       }),
     ),
+  };
+  static defaultProps = {
+    messages: [],
   };
 
   componentDidUpdate() {

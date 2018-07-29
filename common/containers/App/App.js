@@ -12,56 +12,52 @@ import { toggleMute } from '../../actions/index';
 import styles from './App.scss';
 
 
-class App extends React.Component {
-  static propTypes = {
-    isReady: PropTypes.bool,
-    isLogged: PropTypes.bool,
-    message: PropTypes.string,
-    toggleMute: PropTypes.func.isRequired,
-  };
+const App = props => (
+  <div styleName="main-wrapper">
+    <Controls onToggleMute={props.toggleMute} styles={styles} />
+    <Switch>
+      <Route
+        exact
+        path="/"
+        render={() => (
+          <Redirect to="/login" />
+        )}
+      />
 
-  static defaultProps = {
-    isReady: false,
-    isLogged: false,
-    message: null,
-  };
+      <Route
+        exact
+        path="/login"
+        render={() => (
+          <Login />
+        )}
+      />
 
-  render() {
-    return (
-      <div styleName="main-wrapper">
-        <Controls onToggleMute={this.props.toggleMute} styles={styles} />
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <Redirect to="/login" />
-            )}
+      <PrivateRoute
+        logged={props.isLogged}
+        path="/game"
+        render={() => (
+          <Main
+            isReady={props.isReady}
+            message={props.message}
           />
+        )}
+      />
+    </Switch>
+  </div>
+);
 
-          <Route
-            exact
-            path="/login"
-            render={() => (
-              <Login />
-            )}
-          />
+App.propTypes = {
+  isReady: PropTypes.bool,
+  isLogged: PropTypes.bool,
+  message: PropTypes.string,
+  toggleMute: PropTypes.func.isRequired,
+};
 
-          <PrivateRoute
-            logged={this.props.isLogged}
-            path="/game"
-            render={() => (
-              <Main
-                isReady={this.props.isReady}
-                message={this.props.message}
-              />
-            )}
-          />
-        </Switch>
-      </div>
-    );
-  }
-}
+App.defaultProps = {
+  isReady: false,
+  isLogged: false,
+  message: null,
+};
 
 const mapStateToProps = state => ({
   isLogged: state.user.isLogged,
