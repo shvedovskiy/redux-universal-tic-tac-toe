@@ -61,7 +61,7 @@ function calculateWinner(squares) {
   return null;
 }
 
-export default function (io, addr) {
+export default function (io, address) {
   return function connectionHandler(socket) {
     let addedUser = false;
     let room;
@@ -92,7 +92,7 @@ export default function (io, addr) {
           socket.emit('action', {
             type: USER_ADDED,
             username: action.username,
-            message: `http://${addr.host || 'localhost'}:${addr.port}/login?invite=${socket.id}`,
+            message: `${address}login?invite=${socket.id}`,
           });
           break;
         }

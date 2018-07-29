@@ -67,4 +67,4 @@ server.on('listening', () => {
   console.info(`==> 🌎  Listening on port ${port}. Open up ${address} in your browser.`);
 });
 
-io.on('connection', connectionHandler(io, server.address()));
+io.on('connection', connectionHandler(io, address));
