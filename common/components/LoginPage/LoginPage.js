@@ -6,14 +6,14 @@ import styles from './LoginPage.scss';
 
 class LoginPage extends React.PureComponent {
   static propTypes = {
-    username: PropTypes.string,
+    fatalError: PropTypes.string,
     error: PropTypes.string,
     handleSetUsername: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    username: null,
-    error: null,
+    fatalError: '',
+    error: '',
   };
 
   componentDidMount() {
@@ -35,12 +35,12 @@ class LoginPage extends React.PureComponent {
   };
 
   render() {
-    if (!this.props.username && this.props.error) {
+    if (this.props.fatalError) {
       return (
         <div styleName="login-page">
           <ul styleName="login-errors">
             <li><span styleName="login-error">
-              {this.props.error}
+              {this.props.fatalError}
             </span></li>
           </ul>
         </div>

@@ -12,7 +12,7 @@ const Login = props => (
     : (
       <LoginPage
         handleSetUsername={props.handleSetUsername}
-        username={props.username}
+        fatalError={props.fatalError}
         error={props.error}
       />
     )
@@ -20,20 +20,20 @@ const Login = props => (
 
 Login.propTypes = {
   isLogged: PropTypes.bool,
-  username: PropTypes.string,
+  fatalError: PropTypes.string,
   error: PropTypes.string,
   handleSetUsername: PropTypes.func.isRequired,
 };
 
 Login.defaultProps = {
   isLogged: false,
-  username: '',
-  error: null,
+  fatalError: '',
+  error: '',
 };
 
 const mapStateToProps = state => ({
   isLogged: state.user.isLogged,
-  username: state.user.username,
+  fatalError: state.user.fatalError,
   error: state.user.error,
 });
 

@@ -33,5 +33,7 @@
   flex-basis: 35%;
   flex-grow: 0;
   justify-self: stretch;
+  max-height: 100%;
+  overflow-y: auto;
 }
 

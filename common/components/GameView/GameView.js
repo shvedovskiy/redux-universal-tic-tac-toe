@@ -20,24 +20,21 @@ const GameView = ({
       </span>
     </div>
     {children}
-    <div styleName="info">
-      X: {X} - O: {O}
-      <ul styleName={classNames('info', 'messages')}>
-        {
-          messages.map((message, i) => (
-            <li styleName="info-message" key={i}> {/* eslint-disable-line react/no-array-index-key */}
-              {
-                winner ? (
-                  <EndOfGame replay={replay} logout={logout} styles={styles}>
-                    {message}
-                  </EndOfGame>
-                ) : message
-              }
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+    <ul styleName="info">
+      {
+        messages.map((message, i) => (
+          <li styleName="info-message" key={i}> {/* eslint-disable-line react/no-array-index-key */}
+            {
+              winner ? (
+                <EndOfGame replay={replay} logout={logout} styles={styles}>
+                  {message}
+                </EndOfGame>
+              ) : message
+            }
+          </li>
+        ))
+      }
+    </ul>
   </div>
 );
 

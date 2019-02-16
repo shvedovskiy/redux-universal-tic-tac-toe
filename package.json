@@ -5,11 +5,10 @@
   "main": "server/bin/server.js",
   "scripts": {
     "dev": "npx webpack-dev-server --config config/client.dev.config.js",
-    "dev:start": "NODE_ENV=development npm run build:server && node server/bin/server.js",
-    "build": "rimraf server/bin && NODE_ENV=production npm run build:client && NODE_ENV=production npm run build:server",
-    "build:server": "npx webpack --config config/server.config.js --progress",
-    "build:client": "npx webpack --config config/client.prod.config.js --progress",
-    "start": "node server/bin/server.js",
+    "dev:server": "NODE_ENV=development npm run build:server && node server/bin/server.js",
+    "build": "rimraf server/bin && npm run build:client && npm run build:server",
+    "build:server": "NODE_ENV=production webpack --config config/server.config.js --progress",
+    "build:client": "NODE_ENV=production webpack --config config/client.prod.config.js --progress",
     "lint": "npx eslint --ext .jsx,.js ./"
   },
   "repository": {
@@ -90,9 +89,9 @@
     "rimraf": "^2.6.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
-    "webpack": "^4.16.3",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^2.4.1",
+    "webpack": "^4.29.4",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.1.14",
     "webpack-node-externals": "^1.2.0"
   }
 }

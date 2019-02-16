@@ -20,7 +20,8 @@ router.get('/', (req, res) => {
       isLogged: false,
       isReady: false,
       invitedId: null,
-      error: null,
+      fatalError: '',
+      error: '',
       message: null,
     },
   };
@@ -38,7 +39,7 @@ router.get('/', (req, res) => {
       persistedStore = {
         user: {
           ...persistedStore.user,
-          error: 'Unknown invite token',
+          fatalError: 'Unknown invite token',
         },
       };
     }

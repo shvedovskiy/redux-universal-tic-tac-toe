@@ -53,7 +53,7 @@ class Data {
 
   addRoomForOwner(roomId, id, username) {
     if (this.data.hasOwnProperty(roomId)) {
-      throw new DataAccessError(`User ${id} already have a room`);
+      throw new DataAccessError(`User ${username} already have a room`);
     }
 
     this.data[roomId] = {
@@ -71,13 +71,13 @@ class Data {
 
   addInvitedUser(id, username, roomId = this.roomId) {
     if (!this.data.hasOwnProperty(roomId)) {
-      throw new DataAccessError(`No available rooms with id ${roomId}`);
+      throw new DataAccessError(`No available rooms with id ${roomId}`, true);
     }
 
     const room = this.data[roomId];
 
     if (room.invited) {
-      throw new DataAccessError('Only 1 invited player passed for room');
+      throw new DataAccessError('Only 1 invited player passed for room', true);
     } else if (Object.values(room.playerNames).includes(username)) {
       throw new DataAccessError('Duplicate name with opponent');
     }
@@ -93,6 +93,14 @@ class Data {
     }
 
     return this.data[roomId];
+  }
+
+  deleteRoom(roomId = this.roomId) {
+    if (!this.data.hasOwnProperty(roomId)) {
+      throw DataAccessError(`No such rooms for id ${roomId}`);
+    }
+
+    delete this.data[roomId];
   }
 
   getPlayerName(playerId, roomId = this.roomId) {
@@ -182,7 +190,7 @@ class Data {
         room.game.O = null;
       }
     } else {
-      delete this.getRoom(roomId);
+      this.deleteRoom(roomId);
     }
     return true;
   }

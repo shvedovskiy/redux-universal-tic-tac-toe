@@ -3,6 +3,7 @@ import data from '../data';
 import {
   ADD_INVITED_USER,
   ADD_USER,
+  FATAL_ERROR_LOGIN,
   ERROR_LOGIN,
   INVITED_USER_ADDED,
   LOGOUT,
@@ -73,22 +74,21 @@ export default function (io, address) {
             return;
           }
 
-          addedUser = true;
           socket.username = action.username;
           room = `room-${socket.id}`;
-          socket.join(room);
-          socket.room = room;
 
           try {
-            data.addRoomForOwner(socket.room, socket.id, socket.username);
+            data.addRoomForOwner(room, socket.id, socket.username);
           } catch (e) {
             socket.emit('action', {
-              type: ERROR_LOGIN,
+              type: e.fatal ? FATAL_ERROR_LOGIN : ERROR_LOGIN,
               error: e.message,
             });
             return;
           }
-
+          addedUser = true;
+          socket.join(room);
+          socket.room = room;
           socket.emit('action', {
             type: USER_ADDED,
             username: action.username,
@@ -102,7 +102,6 @@ export default function (io, address) {
           }
 
           socket.username = action.username;
-          addedUser = true;
           const invitedId = action.invitedId;
           room = `room-${invitedId}`;
           data.setRoomId(room);
@@ -111,12 +110,12 @@ export default function (io, address) {
             data.addInvitedUser(socket.id, socket.username);
           } catch (e) {
             socket.emit('action', {
-              type: ERROR_LOGIN,
+              type: e.fatal ? FATAL_ERROR_LOGIN : ERROR_LOGIN,
               error: e.message,
             });
             return;
           }
-
+          addedUser = true;
           socket.join(room);
           socket.room = room;
 

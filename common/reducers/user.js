@@ -1,4 +1,5 @@
 import {
+  FATAL_ERROR_LOGIN,
   ERROR_LOGIN,
   INVITED_USER_ADDED,
   SUCCESSFULLY_LOGOUT,
@@ -13,7 +14,8 @@ const initialState = {
   isLogged: false,
   isReady: false,
   invitedId: null,
-  error: null,
+  fatalError: '',
+  error: '',
   message: null,
 };
 
@@ -26,6 +28,7 @@ const user = (state = initialState, action) => {
         username: action.username,
         message: action.message,
         isLogged: !state.isLogged,
+        error: '',
       };
     }
     case INVITED_USER_ADDED: {
@@ -36,12 +39,19 @@ const user = (state = initialState, action) => {
           opponent: action.opponent,
           isLogged: !state.isLogged,
           isReady: !state.isReady,
+          error: '',
         };
       }
       return {// в нашу комнату вошел invited
         ...state,
         opponent: action.opponent,
         isReady: !state.isReady,
+      };
+    }
+    case FATAL_ERROR_LOGIN: {
+      return {
+        ...state,
+        fatalError: action.error,
       };
     }
     case ERROR_LOGIN: {

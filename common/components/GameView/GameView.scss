@@ -15,18 +15,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  color: #fff;
+  font-size: 150%;
 
-  .messages {
-    color: #fff;
-    font-size: 150%;
+  @media screen and (max-width: 350px) {
+    font-size: 100%;
+  }
 
-    @media screen and (max-width: 350px) {
-      font-size: 100%;
-    }
-
-    .info-message {
-      color: inherit
-    }
+  .info-message {
+    color: inherit
   }
 }
 
