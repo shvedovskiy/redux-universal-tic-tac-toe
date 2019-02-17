@@ -1,8 +1,9 @@
 {
-    "alias": "tictactoe-test",
-    "env": {
-      "STATIC_PATH": "/static/",
-      "SERVER_PORT": "8081",
-      "HTTPS": "true"
-    }
+  "version": 1,
+  "alias": "tictactoe-test",
+  "env": {
+    "STATIC_PATH": "/static/",
+    "SERVER_PORT": "8081",
+    "HTTPS": "true"
+  }
 }

@@ -4,12 +4,13 @@
   "description": "Multiplayer SPA game",
   "main": "server/bin/server.js",
   "scripts": {
-    "dev": "npx webpack-dev-server --config config/client.dev.config.js",
+    "dev": "webpack-dev-server --config config/client.dev.config.js",
     "dev:server": "NODE_ENV=development npm run build:server && node server/bin/server.js",
     "build": "rimraf server/bin && npm run build:client && npm run build:server",
     "build:server": "NODE_ENV=production webpack --config config/server.config.js --progress",
     "build:client": "NODE_ENV=production webpack --config config/client.prod.config.js --progress",
-    "lint": "npx eslint --ext .jsx,.js ./"
+    "lint": "eslint --ext .jsx,.js ./",
+    "now-start": "node server/bin/server.js"
   },
   "repository": {
     "type": "git",
